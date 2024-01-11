@@ -1,0 +1,7 @@
+{
+  "name": "tuubodega-app",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular-standalone"
+}

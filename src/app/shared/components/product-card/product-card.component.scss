@@ -1,0 +1,16 @@
+ion-card {
+    margin: 5px;
+    height: 98%;
+    cursor: pointer;
+}
+
+img-container{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+ion-img {
+    height: 200px;
+    width: auto;
+}

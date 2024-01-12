@@ -1,0 +1,29 @@
+.no-border {
+    --border-color: transparent;
+  }
+  
+  .border-radius {
+    border-radius: 5px;
+  }
+  
+  .center-image {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #fff;
+    height: 44px;
+    cursor: pointer;
+  }
+  
+  .width-44 {
+    width: 44px;
+  }
+  
+  .img-logo {
+    height: 40px;
+    margin: 0px 5px 0px 5px;
+  }
+  
+  .prom-main-header{
+    margin-left: 10px;
+  }

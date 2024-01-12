@@ -1,0 +1,14 @@
+
+<div class="swiper">
+  <div #swiperWrapper class="swiper-wrapper">
+    <div class="swiper-slide" *ngFor="let slide of slides">
+      <div class="img-container ion-text-center">
+        <img *ngIf="!glb.isMobile" class="img-web" [appPreloadImage]="slide.web" [src]="slide.web" [alt]="slide.alt" width="1600" height="340">
+        <img *ngIf="glb.isMobile" class="img-mobile" [appPreloadImage]="slide.mobile" [src]="slide.mobile" [alt]="slide.alt" width="984" height="450">
+      </div>
+    </div>
+  </div>
+  <div class="swiper-pagination"></div>
+  <div class="swiper-button-prev"></div>
+  <div class="swiper-button-next"></div>
+</div>

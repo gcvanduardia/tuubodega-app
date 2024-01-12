@@ -24,3 +24,24 @@
 @import "@ionic/angular/css/text-alignment.css";
 @import "@ionic/angular/css/text-transformation.css";
 @import "@ionic/angular/css/flex-utils.css";
+
+/* swiper  */
+@import "swiper/css";
+@import "swiper/css/navigation";
+@import "swiper/css/pagination";
+
+ion-content {
+  --background: #f8fdff;
+}
+
+.swiper-pagination-bullet {
+  opacity: 1;
+  background-color: rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(255, 255, 255, 1);
+}
+
+.swiper-pagination-bullet-active {
+  opacity: 1;
+  background-color: #fff;
+  border: 1px solid rgba(0, 0, 0, 0.5);
+}

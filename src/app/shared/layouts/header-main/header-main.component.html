@@ -1,0 +1,45 @@
+<app-menu-main *ngIf="glb.isMobile"></app-menu-main>
+<ion-header mode="ios">
+  <ion-toolbar color="amarillo" class="no-border">
+    <ion-buttons slot="start" *ngIf="router.url!='/home' && glb.isMobile">
+      <ion-back-button defaultHref="home" mode="md" text=""></ion-back-button>
+    </ion-buttons>
+    <ion-grid fixed class="ion-no-padding">
+      <ion-row>
+        <ion-col size="12">
+          <ion-toolbar color="amarillo" class="no-border border-radius ion-no-padding">
+            <div *ngIf="!glb.isMobile" class="center-image" slot="start" [routerLink]="['/home']" routerLinkActive="router-link-active">
+              <ion-img class="img-logo" src="assets/img/logo1.png" alt="logo web"></ion-img>
+            </div>
+            <div *ngIf="glb.isMobile" class="center-image width-44" slot="start" [routerLink]="['/home']" routerLinkActive="router-link-active">
+              <ion-img *ngIf="glb.isMobile" class="img-logo" src="assets/icon/favicon.png" alt="logo mobile"></ion-img>
+            </div>
+            <app-search-main></app-search-main>
+            <ion-buttons slot="end" class="prom-main-header">
+              <ion-button *ngIf="!glb.isMobile" fill="outline" shape="round">
+                No te pierdas las mejores ofertas
+              </ion-button>
+              <ion-menu-toggle id="menu-main" *ngIf="glb.isMobile">
+                <ion-button aria-label="main-menu">
+                  <ion-icon slot="icon-only" name="menu-outline"></ion-icon>
+                </ion-button>
+              </ion-menu-toggle>
+              <ion-button *ngIf="glb.isMobile" fill="clear" aria-label="cart">
+                <ion-icon slot="icon-only" name="cart-outline" size="large"></ion-icon>
+              </ion-button>
+            </ion-buttons>
+          </ion-toolbar>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-toolbar>
+  <ion-toolbar color="amarillo" class="no-border ion-no-padding">
+    <ion-grid fixed class="ion-no-padding">
+      <ion-row>
+        <ion-col size="12">
+          <app-header-main-sub></app-header-main-sub>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-toolbar>
+</ion-header>

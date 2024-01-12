@@ -1,0 +1,14 @@
+<ion-card mode="ios">
+  <div class="img-container">
+    <ion-img [src]="product.image" [alt]="product.title"></ion-img>
+  </div>
+
+  <ion-card-header>
+    <ion-text>{{ product.title }}</ion-text>
+  </ion-card-header>
+
+  <ion-card-content>
+    <ion-text>{{ product.price | currency:'$ ':'symbol':'1.0-0'}}</ion-text>
+  </ion-card-content>
+
+</ion-card>

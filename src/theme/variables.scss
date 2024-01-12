@@ -74,9 +74,60 @@
   --ion-color-light-contrast-rgb: 0, 0, 0;
   --ion-color-light-shade: #d7d8da;
   --ion-color-light-tint: #f5f6f9;
+
+  /* naranja */
+  --ion-color-naranja: #fb8500;
+	--ion-color-naranja-rgb: 251,133,0;
+	--ion-color-naranja-contrast: #001921;
+	--ion-color-naranja-contrast-rgb: 0,0,0;
+	--ion-color-naranja-shade: #dd7500;
+	--ion-color-naranja-tint: #fb911a;
+
+  /* amarillo */
+  --ion-color-amarillo: #ffb703;
+  --ion-color-amarillo-rgb: 255,183,3;
+  --ion-color-amarillo-contrast: #001921;
+  --ion-color-amarillo-contrast-rgb: 0,0,0;
+  --ion-color-amarillo-shade: #e0a103;
+  --ion-color-amarillo-tint: #ffbe1c; 
+
+  /* negro1 */
+  --ion-color-negro1: #001921;
+	--ion-color-negro1-rgb: 0,25,33;
+	--ion-color-negro1-contrast: #ffffff;
+	--ion-color-negro1-contrast-rgb: 255,255,255;
+	--ion-color-negro1-shade: #00161d;
+	--ion-color-negro1-tint: #1a3037;
 }
 
-@media (prefers-color-scheme: dark) {
+.ion-color-naranja {
+	--ion-color-base: var(--ion-color-naranja);
+	--ion-color-base-rgb: var(--ion-color-naranja-rgb);
+	--ion-color-contrast: var(--ion-color-naranja-contrast);
+	--ion-color-contrast-rgb: var(--ion-color-naranja-contrast-rgb);
+	--ion-color-shade: var(--ion-color-naranja-shade);
+	--ion-color-tint: var(--ion-color-naranja-tint);
+}
+
+.ion-color-amarillo {
+	--ion-color-base: var(--ion-color-amarillo);
+	--ion-color-base-rgb: var(--ion-color-amarillo-rgb);
+	--ion-color-contrast: var(--ion-color-amarillo-contrast);
+	--ion-color-contrast-rgb: var(--ion-color-amarillo-contrast-rgb);
+	--ion-color-shade: var(--ion-color-amarillo-shade);
+	--ion-color-tint: var(--ion-color-amarillo-tint);
+}
+
+.ion-color-negro1 {
+	--ion-color-base: var(--ion-color-negro1);
+	--ion-color-base-rgb: var(--ion-color-negro1-rgb);
+	--ion-color-contrast: var(--ion-color-negro1-contrast);
+	--ion-color-contrast-rgb: var(--ion-color-negro1-contrast-rgb);
+	--ion-color-shade: var(--ion-color-negro1-shade);
+	--ion-color-tint: var(--ion-color-negro1-tint);
+}
+
+@media (prefers-color-scheme: light) {
   /*
    * Dark Colors
    * -------------------------------------------

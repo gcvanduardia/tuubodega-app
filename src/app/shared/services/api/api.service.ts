@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { lastValueFrom } from 'rxjs';
+import { environment } from "../../../../environments/environment.prod";
 
 @Injectable({
   providedIn: 'root'
 })
-export class InitService {
+export class ApiService {
 
   slides: any[] = [
     {
@@ -34,16 +35,26 @@ export class InitService {
     },
   ];
 
-  url: string = "https://fakestoreapi.com/products/";
+  headers = new HttpHeaders().set('x-api-key', 'tuubodegaAuth');
 
   constructor(
     private http: HttpClient
   ) { }
 
 
-  async getInitProducts(): Promise<any> {
-    const observable = this.http.get(`${this.url}`);
-    return lastValueFrom(observable);
+  async searchArticles(search: string, page: number): Promise<any> {
+    try {
+      const headers = this.headers;
+      let url = `${environment.api.url}/articulos/search?search=${search}&pageNumber=${page}`;
+      if(search === ''){
+        url = `${environment.api.url}/articulos/search?pageNumber=${page}`
+      }
+      const observable = this.http.get(url, { headers });
+      return await lastValueFrom(observable);
+    } catch (error) {
+      console.error('Hubo un error al obtener los productos iniciales:', error);
+      throw error;
+    }
   }
 
   getInitSlides() {

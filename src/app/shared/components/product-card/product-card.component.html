@@ -1,14 +1,16 @@
-<ion-card mode="ios">
+<ion-card mode="ios" title="{{ product.Nombre }}">
   <div class="img-container">
-    <ion-img [src]="product.image" [alt]="product.title"></ion-img>
+    <ion-img [src]="product.ImagenPrin" [alt]="product.Nombre"></ion-img>
   </div>
 
   <ion-card-header>
-    <ion-text>{{ product.title }}</ion-text>
+    <p>
+      <ion-text>{{ product.Nombre }}</ion-text>
+    </p>
   </ion-card-header>
 
   <ion-card-content>
-    <ion-text>{{ product.price | currency:'$ ':'symbol':'1.0-0'}}</ion-text>
+    <b><ion-text>{{ product.PrecioUnit | currency:'$ ':'symbol':'1.0-0'}}</ion-text></b>
   </ion-card-content>
 
 </ion-card>

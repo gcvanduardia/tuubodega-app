@@ -2,7 +2,7 @@
 
 <ion-content>
 
-  <app-slides-main [slides]="slides" [params]="swiperParamsSelect()"></app-slides-main>
+  <app-slides-main *ngIf="glb.searchArticles==''" [slides]="slides" [params]="swiperParamsSelect()"></app-slides-main>
   
   <ion-grid fixed class="ion-no-padding">
     <ion-row>

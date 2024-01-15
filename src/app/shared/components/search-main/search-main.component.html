@@ -1,6 +1,7 @@
 <ion-item lines="none" class="ion-no-padding">
-  <ion-input class="search" type="text" placeholder="Buscar productos..." (keyup.enter)="search()" [(ngModel)]="glb.searchArticles"> </ion-input>
+  <ion-input class="search" type="text" placeholder="Buscar productos..." (keyup.enter)="search()" [(ngModel)]="searchArticles"> </ion-input>
   <ion-button slot="end" fill="clear" class="button-search" aria-label="search" (click)="search()">
-      <ion-icon slot="icon-only" size="large" name="search" color="negro1"></ion-icon>
+      <ion-icon *ngIf="!searchInProcess" slot="icon-only" size="large" name="search" color="negro1"></ion-icon>
+      <ion-spinner *ngIf="searchInProcess" name="bubbles" color="negro1"></ion-spinner>
   </ion-button>
 </ion-item>

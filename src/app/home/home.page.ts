@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { IonContent, IonGrid, IonRow, IonCol, IonInfiniteScroll, IonInfiniteScrollContent } from '@ionic/angular/standalone';
+import { IonContent, IonGrid, IonRow, IonCol, IonInfiniteScroll, IonInfiniteScrollContent, IonText } from '@ionic/angular/standalone';
 import { HeaderMainComponent } from "../shared/layouts/header-main/header-main.component";
 import { ProductCardComponent } from "../shared/components/product-card/product-card.component";
 import { GlobalService } from "../shared/services/global/global.service";
@@ -14,7 +14,7 @@ import { InfiniteScrollCustomEvent } from '@ionic/angular';
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
   standalone: true,
-  imports: [CommonModule, IonContent, HeaderMainComponent, ProductCardComponent, IonGrid, IonRow, IonCol, SlidesMainComponent, RouterModule, IonInfiniteScroll, IonInfiniteScrollContent],
+  imports: [CommonModule, IonContent, HeaderMainComponent, ProductCardComponent, IonGrid, IonRow, IonCol, SlidesMainComponent, RouterModule, IonInfiniteScroll, IonInfiniteScrollContent, IonText],
 })
 export class HomePage implements OnInit {
 

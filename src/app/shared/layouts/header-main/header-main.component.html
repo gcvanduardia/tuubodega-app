@@ -15,8 +15,8 @@
               <ion-img *ngIf="glb.isMobile" class="img-logo" src="assets/icon/favicon1.png" alt="logo mobile"></ion-img>
             </div>
             <app-search-main></app-search-main>
-            <ion-buttons slot="end" class="prom-main-header">
-              <ion-button *ngIf="!glb.isMobile" fill="outline" shape="round">
+            <ion-buttons slot="end" class="prom-main-header" class="ion-no-padding">
+              <ion-button slot="end" *ngIf="!glb.isMobile" fill="outline" shape="round" style="padding-left: 10px;">
                 No te pierdas las mejores ofertas
               </ion-button>
               <ion-menu-toggle id="menu-main" *ngIf="glb.isMobile">

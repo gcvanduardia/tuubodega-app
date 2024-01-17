@@ -42,12 +42,12 @@ export class ApiService {
   ) { }
 
 
-  async searchArticles(search: string, page: number): Promise<any> {
+  async searchArticles(search: string = '', page: number = 1, order: string = 'masRelevante'): Promise<any> {
     try {
       const headers = this.headers;
-      let url = `${environment.api.url}/articulos/search?search=${search}&pageNumber=${page}`;
+      let url = `${environment.api.url}/articulos/search?search=${search}&pageNumber=${page}&order=${order}`;
       if(search === ''){
-        url = `${environment.api.url}/articulos/search?pageNumber=${page}`
+        url = `${environment.api.url}/articulos/search?pageNumber=${page}`;
       }
       const observable = this.http.get(url, { headers });
       return await lastValueFrom(observable);

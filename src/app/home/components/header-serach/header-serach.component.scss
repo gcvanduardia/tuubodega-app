@@ -1,0 +1,24 @@
+ion-text{
+    font-size: small;
+}
+
+ion-label{
+    font-size: small;
+}
+
+.no-border {
+    --border-color: transparent;
+}
+
+ion-button {
+    font-size: small;
+}
+
+ion-popover {
+    --width: 95%;
+  
+    @media (min-width: 400px) {
+      --width: 400px;
+    }
+  }
+

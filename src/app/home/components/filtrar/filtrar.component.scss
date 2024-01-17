@@ -1,0 +1,7 @@
+ion-content{
+    font-size: small;
+}
+
+ion-select::part(text) {
+    color: var(--ion-color-primary);
+}

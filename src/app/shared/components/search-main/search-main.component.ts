@@ -35,7 +35,7 @@ export class SearchMainComponent  implements OnInit {
   }
 
   getInitSearch() {
-    this.route.params.subscribe(params => {
+    this.route.queryParams.subscribe(params => {
       if(params['search']){
         this.glb.searchArticles = params['search'];
         this.searchArticles = params['search'];
@@ -62,7 +62,10 @@ export class SearchMainComponent  implements OnInit {
   }
 
   searchRouter(){
-    this.router.navigate([`/home/${this.searchArticles}`]);
+    this.glb.searchArticles = '';
+    this.glb.pageArticles = 1;
+    this.glb.articles = [];
+    this.router.navigate([`/home`], { queryParams: { search: this.searchArticles } });
   }
 
 }

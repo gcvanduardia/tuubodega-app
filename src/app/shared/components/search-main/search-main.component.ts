@@ -62,9 +62,7 @@ export class SearchMainComponent  implements OnInit {
   }
 
   searchRouter(){
-    this.glb.searchArticles = '';
     this.glb.pageArticles = 1;
-    this.glb.articles = [];
     this.router.navigate([`/home`], { queryParams: { search: this.searchArticles } });
   }
 

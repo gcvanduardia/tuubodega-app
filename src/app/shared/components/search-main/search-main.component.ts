@@ -6,6 +6,8 @@ import { addIcons } from 'ionicons';
 import { search } from "ionicons/icons";
 import { GlobalService } from "../../services/global/global.service";
 import { ApiService } from "../../services/api/api.service";
+import { ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-search-main',
@@ -21,12 +23,28 @@ export class SearchMainComponent  implements OnInit {
 
   constructor(
     public glb: GlobalService,
-    private api: ApiService
+    private api: ApiService,
+    private route: ActivatedRoute,
+    private router: Router
   ) {
     addIcons({ search });
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.getInitSearch();
+  }
+
+  getInitSearch() {
+    this.route.params.subscribe(params => {
+      if(params['search']){
+        this.glb.searchArticles = params['search'];
+        this.searchArticles = params['search'];
+        this.glb.pageArticles = 1;
+        console.log("search: ",this.glb.searchArticles);
+        this.search();
+      }
+    });
+  }
 
   async search(){
     this.glb.searchArticles = this.searchArticles;
@@ -41,6 +59,10 @@ export class SearchMainComponent  implements OnInit {
     this.glb.pageArticlesLimit = Math.ceil(this.glb.quatntityArticles / products[1][0].PageZise);
     console.log('this.glb.quatntityArticles', this.glb.quatntityArticles)
     console.log('this.glb.pageArticlesLimit:', this.glb.pageArticlesLimit);
+  }
+
+  searchRouter(){
+    this.router.navigate([`/home/${this.searchArticles}`]);
   }
 
 }

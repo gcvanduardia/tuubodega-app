@@ -15,7 +15,7 @@ export class GlobalService {
   public orderArticles: string = 'masRelevante';
 
   constructor(
-    private plt: Platform
+    public plt: Platform
   ) { 
     console.log('from Global Service, isMobile: ', this.isMobile);
   }

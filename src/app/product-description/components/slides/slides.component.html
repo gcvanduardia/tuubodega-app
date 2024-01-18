@@ -1,0 +1,14 @@
+<div *ngIf="slides.length>0">
+  <div class="swiper">
+    <div #swiperWrapper class="swiper-wrapper">
+      <div class="swiper-slide" *ngFor="let slide of slides">
+        <div class="img-container ion-text-center">
+          <img class="img-mobile" [appPreloadImage]="slide" [src]="slide" [alt]="slide">
+        </div>
+      </div>
+    </div>
+    <div class="swiper-pagination"></div>
+    <div class="swiper-button-prev"></div>
+    <div class="swiper-button-next"></div>
+  </div>
+</div>

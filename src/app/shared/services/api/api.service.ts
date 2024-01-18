@@ -57,6 +57,17 @@ export class ApiService {
     }
   }
 
+  async getArticle(id: number): Promise<any> {
+    try {
+      const headers = this.headers;
+      const observable = this.http.get(`${environment.api.url}/articulos/articulo?id=${id}`, { headers });
+      return await lastValueFrom(observable);
+    } catch (error) {
+      console.error('Hubo un error al obtener el producto:', error);
+      throw error;
+    }
+  }
+
   getInitSlides() {
     return this.slides;
   }

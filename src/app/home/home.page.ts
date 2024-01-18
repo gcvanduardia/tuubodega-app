@@ -9,6 +9,7 @@ import { SlidesMainComponent } from "../shared/components/slides-main/slides-mai
 import { RouterModule } from '@angular/router';
 import { InfiniteScrollCustomEvent } from '@ionic/angular';
 import { HeaderSerachComponent } from "./components/header-serach/header-serach.component";
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -25,10 +26,20 @@ export class HomePage implements OnInit {
   constructor(
     public glb: GlobalService,
     private api: ApiService,
+    private route: ActivatedRoute
   ) {}
 
   async ngOnInit() {
-    await this.getInitData();
+    this.getInitSearch();
+  }
+
+  getInitSearch() {
+    this.route.params.subscribe(params => {
+      if(!params['search']){
+        this.glb.searchArticles = '';
+        this.getInitData();
+      }
+    });
   }
 
   async getInitData() {
@@ -44,6 +55,7 @@ export class HomePage implements OnInit {
     this.glb.articles.push(...products[0]);
     this.glb.quatntityArticles = products[1][0].Resultados;
     this.glb.pageArticlesLimit = Math.ceil(this.glb.quatntityArticles / products[1][0].PageZise);
+    console.log('init articles this.glb.articles', this.glb.articles);
     console.log('this.glb.quatntityArticles', this.glb.quatntityArticles)
     console.log('this.glb.pageArticlesLimit:', this.glb.pageArticlesLimit);
   }

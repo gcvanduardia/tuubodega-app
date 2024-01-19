@@ -4,13 +4,15 @@ import { GlobalService } from "../../../shared/services/global/global.service";
 import { addIcons } from 'ionicons'; 
 import { chevronDown } from "ionicons/icons";
 import { FiltrarComponent } from "../filtrar/filtrar.component";
+import { PopoverController } from '@ionic/angular';
 
 @Component({
   selector: 'app-header-serach',
   templateUrl: './header-serach.component.html',
   styleUrls: ['./header-serach.component.scss'],
   standalone: true,
-  imports: [IonHeader, IonToolbar, IonText, IonButtons, IonGrid, IonRow, IonCol, IonPopover, IonButton, IonIcon, FiltrarComponent]
+  imports: [IonHeader, IonToolbar, IonText, IonButtons, IonGrid, IonRow, IonCol, IonPopover, IonButton, IonIcon, FiltrarComponent],
+  providers: [PopoverController]
 })
 export class HeaderSerachComponent  implements OnInit {
 
@@ -19,11 +21,26 @@ export class HeaderSerachComponent  implements OnInit {
   };
 
   constructor(
-    public glb: GlobalService
+    public glb: GlobalService,
+    public popoverController: PopoverController
   ) { 
     addIcons({ chevronDown })
   }
 
   ngOnInit() {}
+
+  async presentPopover(e: Event) {  
+    console.log('show popover');
+    const popover = await this.popoverController.create({
+      component: FiltrarComponent,
+      event: e,
+      cssClass: 'ion-popover',
+    });
+
+    await popover.present();
+
+    const { role } = await popover.onDidDismiss();
+    console.log(`Popover dismissed with role: ${role}`);
+  }
 
 }

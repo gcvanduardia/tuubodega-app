@@ -45,3 +45,11 @@ ion-content {
   background-color: #fff;
   border: 1px solid rgba(0, 0, 0, 0.5);
 }
+
+.ion-popover {
+  --width: 95%;
+
+  @media (min-width: 400px) {
+    --width: 400px;
+  }
+}

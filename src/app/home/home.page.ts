@@ -51,8 +51,8 @@ export class HomePage implements OnInit {
     this.initArticlesSipnner = true;
     const products = await this.api.searchArticles();
     this.initArticlesSipnner = false;
-    this.glb.articles = [];
-    this.glb.articles.push(...products[0]);
+    this.glb.articles = products[0];
+    /* this.glb.articles.push(...products[0]); */
     this.glb.quatntityArticles = products[1][0].Resultados;
     this.glb.pageArticlesLimit = Math.ceil(this.glb.quatntityArticles / products[1][0].PageZise);
     console.log('init articles this.glb.articles', this.glb.articles);

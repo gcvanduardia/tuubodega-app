@@ -22,4 +22,8 @@ export class HeaderMainSubComponent  implements OnInit {
 
   ngOnInit() {}
 
+  ubicacion() {
+    console.log('ubicacion');
+  }
+
 }

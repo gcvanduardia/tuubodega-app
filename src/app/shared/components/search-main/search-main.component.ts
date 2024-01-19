@@ -35,7 +35,8 @@ export class SearchMainComponent  implements OnInit {
   }
 
   getInitSearch() {
-    this.route.queryParams.subscribe(params => {
+    /* this.route.queryParams.subscribe(params => { */
+    this.route.params.subscribe(params => {
       if(params['search']){
         this.glb.searchArticles = params['search'];
         this.searchArticles = params['search'];
@@ -53,8 +54,8 @@ export class SearchMainComponent  implements OnInit {
     const products = await this.api.searchArticles(this.glb.searchArticles, this.glb.pageArticles, this.glb.orderArticles);
     console.log('products searched:', products);
     this.searchInProcess = false;
-    this.glb.articles = [];
-    this.glb.articles.push(...products[0]);
+    this.glb.articles = products[0];
+    /* this.glb.articles.push(...products[0]); */
     this.glb.quatntityArticles = products[1][0].Resultados;
     this.glb.pageArticlesLimit = Math.ceil(this.glb.quatntityArticles / products[1][0].PageZise);
     console.log('this.glb.quatntityArticles', this.glb.quatntityArticles)
@@ -62,7 +63,8 @@ export class SearchMainComponent  implements OnInit {
   }
 
   searchRouter(){
-    this.router.navigate([`/home`], { queryParams: { search: this.searchArticles } });
+    /* this.router.navigate([`/home`], { queryParams: { search: this.searchArticles } }); */
+    this.router.navigate([`/home/${this.searchArticles}`]);
   }
 
 }

@@ -8,15 +8,10 @@
               <ion-text style="margin-left: 10px;">{{glb.quatntityArticles}} artículos</ion-text>
             </ion-buttons>
             <ion-buttons slot="end">
-              <ion-button color="primary" id="click-trigger">
+              <ion-button color="primary" (click)="presentPopover($event)">
                 Filtrar
                 <ion-icon slot="end" size="small" name="chevron-down"></ion-icon>
               </ion-button>
-              <ion-popover trigger="click-trigger" triggerAction="click">
-                <ng-template>
-                  <app-filtrar></app-filtrar>
-                </ng-template>
-              </ion-popover>
             </ion-buttons>
           </ion-toolbar>
         </ion-col>

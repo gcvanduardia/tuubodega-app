@@ -1,7 +1,11 @@
-ion-item {
-    height: 44px;
-    border-top-right-radius: 5px;
+.search-content{
+    width: 100%;
+    display: flex; 
+    align-items: center; 
+    background: #fff; 
+    border-top-right-radius: 5px; 
     border-bottom-right-radius: 5px;
+    font-size: small;
 }
 
 .search {
@@ -10,8 +14,4 @@ ion-item {
     --padding-start: 10px !important;
     border-left: solid 1px #ccc;
     border-right: solid 1px #ccc;
-}
-
-.button-search{
-    margin-right: -16px;
 }

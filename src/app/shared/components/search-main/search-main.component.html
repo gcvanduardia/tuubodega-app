@@ -1,14 +1,7 @@
-<ion-item lines="none" class="ion-no-padding">
+<div class="search-content">
   <ion-input class="search" type="text" placeholder="Buscar productos..." (keyup.enter)="searchRouter()" [(ngModel)]="searchArticles"> </ion-input>
-  <ion-button slot="end" fill="clear" class="button-search" aria-label="search" (click)="searchRouter()">
+  <ion-button slot="end" fill="clear" aria-label="search" (click)="searchRouter()">
       <ion-icon *ngIf="!searchInProcess" slot="icon-only" size="large" name="search" color="negro1"></ion-icon>
       <ion-spinner *ngIf="searchInProcess" name="bubbles" color="negro1"></ion-spinner>
   </ion-button>
-</ion-item>
-<!-- <ion-item lines="none" class="ion-no-padding">
-  <ion-input class="search" type="text" placeholder="Buscar productos..." (keyup.enter)="search()" [(ngModel)]="searchArticles"> </ion-input>
-  <ion-button slot="end" fill="clear" class="button-search" aria-label="search" (click)="search()">
-      <ion-icon *ngIf="!searchInProcess" slot="icon-only" size="large" name="search" color="negro1"></ion-icon>
-      <ion-spinner *ngIf="searchInProcess" name="bubbles" color="negro1"></ion-spinner>
-  </ion-button>
-</ion-item> -->
+</div>

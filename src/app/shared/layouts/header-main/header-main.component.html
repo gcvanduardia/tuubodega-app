@@ -1,20 +1,22 @@
 <app-menu-main *ngIf="glb.isMobile"></app-menu-main>
 <ion-header mode="ios">
   <ion-toolbar color="amarillo" class="no-border">
-    <ion-buttons slot="start" *ngIf="router.url!='/home' && glb.isMobile">
+    <ion-buttons style="width: 48px;" slot="start" *ngIf="router.url!='/home' && glb.isMobile">
       <ion-back-button defaultHref="home" mode="md" text=""></ion-back-button>
     </ion-buttons>
     <ion-grid fixed class="ion-no-padding">
       <ion-row>
         <ion-col size="12">
           <ion-toolbar color="amarillo" class="no-border border-radius ion-no-padding">
-            <div *ngIf="!glb.isMobile" class="center-image" slot="start" [routerLink]="['/home']" routerLinkActive="router-link-active">
-              <ion-img class="img-logo" src="assets/img/logo1.png" alt="logo web"></ion-img>
-            </div>
-            <div *ngIf="glb.isMobile" class="center-image width-44" slot="start" [routerLink]="['/home']" routerLinkActive="router-link-active">
-              <ion-img *ngIf="glb.isMobile" class="img-logo" src="assets/icon/favicon1.png" alt="logo mobile"></ion-img>
-            </div>
-            <app-search-main></app-search-main>
+            <ion-buttons style="width: 100%;">
+              <div *ngIf="!glb.isMobile" class="center-image" slot="start" [routerLink]="['/home']" routerLinkActive="router-link-active">
+                <ion-img class="img-logo" src="assets/img/logo1.png" alt="logo web"></ion-img>
+              </div>
+              <div *ngIf="glb.isMobile" class="center-image width-44" slot="start" [routerLink]="['/home']" routerLinkActive="router-link-active">
+                <ion-img *ngIf="glb.isMobile" class="img-logo" src="assets/icon/favicon1.png" alt="logo mobile"></ion-img>
+              </div>
+              <app-search-main></app-search-main>
+            </ion-buttons>
             <ion-buttons slot="end" class="prom-main-header" class="ion-no-padding">
               <ion-button slot="end" *ngIf="!glb.isMobile" fill="outline" shape="round" style="padding-left: 10px;">
                 No te pierdas las mejores ofertas

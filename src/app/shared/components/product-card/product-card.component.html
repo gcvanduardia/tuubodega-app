@@ -3,13 +3,13 @@
     <ion-img [src]="product.ImagenPrin" [alt]="product.Nombre"></ion-img>
   </div>
 
-  <ion-card-header>
+  <ion-card-header class="ion-no-padding">
     <p>
       <ion-text>{{ product.Nombre }}</ion-text>
     </p>
   </ion-card-header>
 
-  <ion-card-content>
+  <ion-card-content class="ion-no-padding">
     <b><ion-text>{{ product.PrecioUnit | currency:'$ ':'symbol':'1.0-0'}}</ion-text></b>
   </ion-card-content>
 

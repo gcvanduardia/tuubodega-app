@@ -37,7 +37,8 @@ export class SearchMainComponent  implements OnInit {
   getInitSearch() {
     /* this.route.queryParams.subscribe(params => { */
     this.route.params.subscribe(params => {
-      if(params['search']){
+      if(params['search'] && params['search'] != this.glb.searchArticles){
+        console.log("search-main.component params['search']: ",params['search']);
         this.glb.searchArticles = params['search'];
         this.searchArticles = params['search'];
         this.glb.pageArticles = 1;

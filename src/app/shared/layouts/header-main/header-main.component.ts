@@ -7,7 +7,7 @@ import { IonHeader, IonToolbar, IonTitle, IonGrid, IonRow, IonCol, IonImg, IonBu
 import { RouterModule } from '@angular/router';
 import { MenuMainComponent } from "../menu-main/menu-main.component";
 import { addIcons } from 'ionicons'; 
-import { menuOutline, cartOutline } from "ionicons/icons";
+import { menuOutline, cartOutline, arrowBack } from "ionicons/icons";
 import { Router } from '@angular/router';
 
 
@@ -24,9 +24,13 @@ export class HeaderMainComponent  implements OnInit {
     public glb: GlobalService,
     public router: Router
   ) { 
-    addIcons({ menuOutline, cartOutline })
+    addIcons({ menuOutline, cartOutline, arrowBack });
   }
 
   ngOnInit() {}
+
+  goToLandingPage(){
+    window.location.href = 'https://tuubodega.com';
+  }
 
 }

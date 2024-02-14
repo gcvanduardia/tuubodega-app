@@ -1,8 +1,11 @@
 <app-menu-main *ngIf="glb.isMobile"></app-menu-main>
 <ion-header mode="ios">
   <ion-toolbar color="amarillo" class="no-border">
-    <ion-buttons style="width: 48px;" slot="start" *ngIf="router.url!='/home' && glb.isMobile">
-      <ion-back-button defaultHref="home" mode="md" text=""></ion-back-button>
+    <ion-buttons style="width: 48px;" slot="start" *ngIf="glb.isMobile">
+      <ion-back-button defaultHref="home" mode="md" text="" *ngIf="router.url!='/home'"></ion-back-button>
+      <ion-button (click)="goToLandingPage()" *ngIf="router.url=='/home'">
+        <ion-icon slot="icon-only" name="arrow-back"></ion-icon>
+      </ion-button>
     </ion-buttons>
     <ion-grid fixed class="ion-no-padding">
       <ion-row>

@@ -5,17 +5,29 @@
 <ion-content>
 
   <app-slides-main *ngIf="glb.searchArticles==''" [slides]="slides" [params]="swiperParamsSelect()"></app-slides-main>
-  
-  <ion-grid fixed class="ion-no-padding">
+
+
+  <ion-grid>
     <ion-row>
-      <ion-col size-xs="6" size-sm="6" size-md="4" size-lg="4" size-xl="3" *ngFor="let product of glb.articles">
-        <app-product-card [product]="product" [routerLink]="['/product-description', product.Id]" ></app-product-card>
+      <ion-col class="hide-on-small" style="max-width: 280px;">
+        <app-filter-main></app-filter-main>
       </ion-col>
-      <ion-col *ngIf="initArticlesSipnner" size="12" class="container">
-        <ion-spinner name="bubbles"></ion-spinner>
-      </ion-col>
-      <ion-col *ngIf="glb.articles.length==0 && glb.searchArticles!=''" size="12" class="container">
-        <ion-text color="primary">Ups, no encotramos nada relacionado con "<b>{{glb.searchArticles}}"</b></ion-text>
+
+      <ion-col>
+        <ion-grid class="ion-no-padding">
+          <ion-row>
+            <ion-col size-xs="6" size-sm="6" size-md="6" size-lg="4" size-xl="3" *ngFor="let product of glb.articles">
+              <app-product-card [product]="product" [routerLink]="['/product-description', product.Id]" ></app-product-card>
+            </ion-col>
+            <ion-col *ngIf="initArticlesSipnner" size="12" class="container">
+              <ion-spinner name="bubbles"></ion-spinner>
+            </ion-col>
+            <ion-col *ngIf="glb.articles.length==0 && glb.searchArticles!=''" size="12" class="container">
+              <ion-text color="primary">Ups, no encotramos nada relacionado con "<b>{{glb.searchArticles}}"</b></ion-text>
+            </ion-col>
+          </ion-row>
+        </ion-grid>  
+
       </ion-col>
     </ion-row>
   </ion-grid>

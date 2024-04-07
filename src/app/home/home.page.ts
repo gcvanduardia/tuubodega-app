@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { IonContent, IonGrid, IonRow, IonCol, IonInfiniteScroll, IonInfiniteScrollContent, IonText, IonSpinner } from '@ionic/angular/standalone';
+import { IonContent, IonGrid, IonRow, IonCol, IonInfiniteScroll, IonInfiniteScrollContent, IonText, IonSpinner, IonCard } from '@ionic/angular/standalone';
 import { HeaderMainComponent } from "../shared/layouts/header-main/header-main.component";
 import { ProductCardComponent } from "../shared/components/product-card/product-card.component";
 import { GlobalService } from "../shared/services/global/global.service";
@@ -10,13 +10,14 @@ import { RouterModule } from '@angular/router';
 import { InfiniteScrollCustomEvent } from '@ionic/angular';
 import { HeaderSerachComponent } from "./components/header-serach/header-serach.component";
 import { ActivatedRoute } from '@angular/router';
+import { FilterMainComponent } from "../shared/components/filter-main/filter-main.component";
 
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
   standalone: true,
-  imports: [CommonModule, IonContent, HeaderMainComponent, ProductCardComponent, IonGrid, IonRow, IonCol, SlidesMainComponent, RouterModule, IonInfiniteScroll, IonInfiniteScrollContent, IonText, IonSpinner, HeaderSerachComponent],
+  imports: [IonCard, CommonModule, IonContent, HeaderMainComponent, ProductCardComponent, IonGrid, IonRow, IonCol, SlidesMainComponent, RouterModule, IonInfiniteScroll, IonInfiniteScrollContent, IonText, IonSpinner, HeaderSerachComponent, FilterMainComponent],
 })
 export class HomePage implements OnInit {
 

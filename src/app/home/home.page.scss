@@ -25,3 +25,9 @@
 #container a {
   text-decoration: none;
 }
+
+@media (max-width: 767px) { /* Ajusta este valor según tus necesidades */
+  .hide-on-small {
+    display: none;
+  }
+}

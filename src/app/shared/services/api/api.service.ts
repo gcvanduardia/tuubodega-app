@@ -10,26 +10,26 @@ export class ApiService {
 
   slides: any[] = [
     {
-      web: "https://http2.mlstatic.com/storage/splinter-admin/o:f_webp,q_auto:best/1700509148719-computacion-con-banco1.jpg",
-      mobile: "https://http2.mlstatic.com/storage/splinter-admin/o:f_webp,q_auto:low/1700455845558-mobile-con-banco2.jpg",
+      web: "https://tuubodega.s3.amazonaws.com/banner-app/banner-test-web.webp",
+      mobile: "https://tuubodega.s3.amazonaws.com/banner-app/banner-test-mobile.webp",
       isLoaded: false,
       alt: "image 1"
     },
     {
-      web: "https://http2.mlstatic.com/storage/splinter-admin/o:f_webp,q_auto:best/1700509148719-computacion-con-banco1.jpg",
-      mobile: "https://http2.mlstatic.com/storage/splinter-admin/o:f_webp,q_auto:low/1700455845558-mobile-con-banco2.jpg",
+      web: "https://tuubodega.s3.amazonaws.com/banner-app/banner-test-web.webp",
+      mobile: "https://tuubodega.s3.amazonaws.com/banner-app/banner-test-mobile.webp",
       isLoaded: false,
       alt: "image 2"
     },
     {
-      web: "https://http2.mlstatic.com/storage/splinter-admin/o:f_webp,q_auto:best/1700509148719-computacion-con-banco1.jpg",
-      mobile: "https://http2.mlstatic.com/storage/splinter-admin/o:f_webp,q_auto:low/1700455845558-mobile-con-banco2.jpg",
+      web: "https://tuubodega.s3.amazonaws.com/banner-app/banner-test-web.webp",
+      mobile: "https://tuubodega.s3.amazonaws.com/banner-app/banner-test-mobile.webp",
       isLoaded: false,
       alt: "image 3"
     },
     {
-      web: "https://http2.mlstatic.com/storage/splinter-admin/o:f_webp,q_auto:best/1700509148719-computacion-con-banco1.jpg",
-      mobile: "https://http2.mlstatic.com/storage/splinter-admin/o:f_webp,q_auto:low/1700455845558-mobile-con-banco2.jpg",
+      web: "https://tuubodega.s3.amazonaws.com/banner-app/banner-test-web.webp",
+      mobile: "https://tuubodega.s3.amazonaws.com/banner-app/banner-test-mobile.webp",
       isLoaded: false,
       alt: "image 4"
     },

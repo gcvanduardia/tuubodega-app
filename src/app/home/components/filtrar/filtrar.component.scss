@@ -1,7 +1,36 @@
 ion-content{
-    font-size: small;
+  font-size: small;
+}
+ion-card{
+  margin: 5px;
+  border-radius: 10px;
+}
+ion-select::part(text) {
+  color: var(--ion-color-primary);
+}
+ion-radio {
+  --border-radius: 4px;
+  --inner-border-radius: 4px;
+
+  --color-checked: var(--ion-color-primary);
+  --checkbox-background-checked: #fff;
+  --checkmark-color: var(--ion-color-primary);
 }
 
-ion-select::part(text) {
-    color: var(--ion-color-primary);
+ion-checkbox {
+  --checkbox-background-checked: #fff;
+  --checkmark-color: var(--ion-color-primary);
+  --checkmark-width: 3px;
+}
+
+ion-radio.ios::part(container), ion-checkbox.ios::part(container) {
+  width: 20px;
+  height: 20px;
+
+  border: 2px solid #ddd;
+  border-radius: 4px;
+}
+
+.radio-checked.ios::part(container), .checkbox-checked.ios::part(container) {
+  border-color: var(--ion-color-secondary);
 }

@@ -1,16 +1,17 @@
 <app-header-main></app-header-main>
-<app-header-serach *ngIf="glb.searchArticles!=''"></app-header-serach>
+<!-- <app-header-serach *ngIf="glb.searchArticles!=''"></app-header-serach> -->
 <!-- <app-header-serach></app-header-serach> -->
 
 <ion-content>
 
   <app-slides-main *ngIf="glb.searchArticles==''" [slides]="slides" [params]="swiperParamsSelect()"></app-slides-main>
 
+  <app-header-serach></app-header-serach>
 
   <ion-grid>
     <ion-row>
       <ion-col class="hide-on-small" style="max-width: 280px;">
-        <app-filter-main></app-filter-main>
+        <app-filtrar></app-filtrar>
       </ion-col>
 
       <ion-col>

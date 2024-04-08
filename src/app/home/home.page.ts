@@ -10,14 +10,14 @@ import { RouterModule } from '@angular/router';
 import { InfiniteScrollCustomEvent } from '@ionic/angular';
 import { HeaderSerachComponent } from "./components/header-serach/header-serach.component";
 import { ActivatedRoute } from '@angular/router';
-import { FilterMainComponent } from "../shared/components/filter-main/filter-main.component";
+import { FiltrarComponent } from "./components/filtrar/filtrar.component";
 
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
   standalone: true,
-  imports: [IonCard, CommonModule, IonContent, HeaderMainComponent, ProductCardComponent, IonGrid, IonRow, IonCol, SlidesMainComponent, RouterModule, IonInfiniteScroll, IonInfiniteScrollContent, IonText, IonSpinner, HeaderSerachComponent, FilterMainComponent],
+  imports: [IonCard, CommonModule, IonContent, HeaderMainComponent, ProductCardComponent, IonGrid, IonRow, IonCol, SlidesMainComponent, RouterModule, IonInfiniteScroll, IonInfiniteScrollContent, IonText, IonSpinner, HeaderSerachComponent, FiltrarComponent],
 })
 export class HomePage implements OnInit {
 
@@ -56,9 +56,11 @@ export class HomePage implements OnInit {
     /* this.glb.articles.push(...products[0]); */
     this.glb.quatntityArticles = products[1][0].Resultados;
     this.glb.pageArticlesLimit = Math.ceil(this.glb.quatntityArticles / products[1][0].PageZise);
+    this.glb.categories = products[2];
     console.log('init articles this.glb.articles', this.glb.articles);
     console.log('this.glb.quatntityArticles', this.glb.quatntityArticles)
     console.log('this.glb.pageArticlesLimit:', this.glb.pageArticlesLimit);
+    console.log('this.glb.categories:', this.glb.categories);
   }
 
   swiperParamsSelect() {
@@ -79,7 +81,7 @@ export class HomePage implements OnInit {
     }
     this.glb.pageArticles++;
     console.log('this.glb.pageArticles:', this.glb.pageArticles);
-    const products = await this.api.searchArticles(this.glb.searchArticles, this.glb.pageArticles, this.glb.orderArticles);
+    const products = await this.api.searchArticles();
     console.log('products searched:', products);
     this.glb.articles.push(...products[0]);
     infiteScroll.target.complete();

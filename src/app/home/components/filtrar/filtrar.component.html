@@ -1,50 +1,33 @@
-<ion-header mode="ios">
-  <ion-toolbar>
-    <ion-text><b>Filtrar por:</b></ion-text>
-    <ion-buttons slot="end">
-      <ion-spinner *ngIf="filterInProcess" color="primary" name="bubbles"></ion-spinner>
-    </ion-buttons>
-  </ion-toolbar>
-</ion-header>
+<ion-grid class="ion-no-padding" mode="ios">
+  <ion-row>
+    <ion-col size="12">
 
-<ion-content mode="ios">
-
-  <ion-grid fixed>
-    <ion-row>
-      <ion-col size="12">
+      <ion-card mode="ios">
+        <ion-card-header>
+          <ion-card-title mode="ios">Filtros</ion-card-title>
+        </ion-card-header>
         <ion-list>
-
-          <ion-item>
-            <ion-select style="font-size: small;" label="Ordenar por: " [(ngModel)]="glb.orderArticles" (ionChange)="filter()" label-placement="stacked" interface="popover">
-              <ion-select-option value="masRelevante">Más relevantes</ion-select-option>
-              <ion-select-option value="menorPrecio">Menor precio</ion-select-option>
-              <ion-select-option value="mayorPrecio">Mayor precio</ion-select-option>
-            </ion-select>
+          <ion-item lines="none">
+            <ion-label><strong>Ordenar por:</strong> </ion-label>
           </ion-item>
-
           <ion-item>
-            <ion-select style="font-size: small;" label="Elegir categoría " label-placement="stacked" interface="popover" multiple="true">
-              <ion-select-option value="masRelevante">Más relevantes</ion-select-option>
-              <ion-select-option value="MenorPrecio">Menor precio</ion-select-option>
-              <ion-select-option value="mayorPrecio">Mayor precio</ion-select-option>
-              <ion-select-option value="mayorPrecio">Mayor precio</ion-select-option>
-              <ion-select-option value="mayorPrecio">Mayor precio</ion-select-option>
-            </ion-select>
+            <ion-radio-group [(ngModel)]="glb.orderArticles" (ionChange)="filter()">
+              <ion-radio value="masRelevante">Más relevantes</ion-radio><br />
+              <ion-radio value="menorPrecio">Menor precio</ion-radio><br />
+              <ion-radio value="mayorPrecio">Mayor precio</ion-radio><br />
+            </ion-radio-group>
           </ion-item>
-          
         </ion-list>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
-  
-</ion-content>
+        <ion-list>
+          <ion-item lines="none">
+            <ion-label><strong>Categorías:</strong> </ion-label>
+          </ion-item>
+          <ion-item *ngFor="let category of glb.categories">
+            <ion-checkbox (ionChange)="categoryChecked(category.IdCategoria, $event)">{{category.Nombre}}</ion-checkbox>
+          </ion-item>
+        </ion-list>
+      </ion-card>
 
-<ion-footer mode="ios">
-  <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-button color="primary" fill="outline" shape="round" (click)="close()">
-        Aceptar
-      </ion-button>
-    </ion-buttons>
-  </ion-toolbar>
-</ion-footer>
+    </ion-col>
+  </ion-row>
+</ion-grid>

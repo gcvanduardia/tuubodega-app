@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { lastValueFrom } from 'rxjs';
 import { environment } from "../../../../environments/environment.prod";
+import { GlobalService } from "../global/global.service";
 
 @Injectable({
   providedIn: 'root'
@@ -38,17 +39,19 @@ export class ApiService {
   headers = new HttpHeaders().set('x-api-key', 'tuubodegaAuth');
 
   constructor(
-    private http: HttpClient
+    private http: HttpClient,
+    private glb: GlobalService
   ) { }
 
 
-  async searchArticles(search: string = '', page: number = 1, order: string = 'masRelevante'): Promise<any> {
+  async searchArticles(): Promise<any> {
     try {
       const headers = this.headers;
-      let url = `${environment.api.url}/articulos/search?search=${search}&pageNumber=${page}&order=${order}`;
-      if(search === ''){
-        url = `${environment.api.url}/articulos/search?pageNumber=${page}`;
+      let url = `${environment.api.url}/articulos/search?search=${this.glb.searchArticles}&pageNumber=${this.glb.pageArticles}&order=${this.glb.orderArticles}&categories=${this.glb.categoriesSelectedString}`;
+      if(this.glb.searchArticles === ''){
+        url = `${environment.api.url}/articulos/search?pageNumber=${this.glb.pageArticles}&order=${this.glb.orderArticles}&categories=${this.glb.categoriesSelectedString}`;
       }
+      console.log('url:', url);
       const observable = this.http.get(url, { headers });
       return await lastValueFrom(observable);
     } catch (error) {

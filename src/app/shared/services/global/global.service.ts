@@ -13,6 +13,9 @@ export class GlobalService {
   public articles: any[] = [];
   public quatntityArticles: number = 0;
   public orderArticles: string = 'masRelevante';
+  public categories: any[] = [];
+  public categoriesSelected: any[] = [];
+  public categoriesSelectedString: string = '';
 
   constructor(
     public plt: Platform

@@ -40,9 +40,8 @@ export class ApiService {
 
   constructor(
     private http: HttpClient,
-    private glb: GlobalService
+    private glb: GlobalService,
   ) { }
-
 
   async searchArticles(): Promise<any> {
     try {
@@ -59,6 +58,21 @@ export class ApiService {
       throw error;
     }
   }
+  
+  async preSearchArticles(search: string): Promise<any> {
+    try {
+      const headers = this.headers;
+      let url = `${environment.api.url}/articulos/presearch?search=${search}&pageNumber=1&order=masRelevante`;
+      console.log('url:', url);
+      const observable = this.http.get(url, { headers });
+      return await lastValueFrom(observable);
+    } catch (error) {
+      console.error('Hubo un error al obtener los productos iniciales:', error);
+      throw error;
+    }
+  }
+
+
 
   async getArticle(id: number): Promise<any> {
     try {

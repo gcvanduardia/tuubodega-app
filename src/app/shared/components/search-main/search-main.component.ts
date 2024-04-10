@@ -1,31 +1,32 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonInput, IonButton, IonIcon, IonItem, IonSpinner } from '@ionic/angular/standalone';
+import { IonInput, IonButton, IonIcon, IonItem, IonSpinner, IonPopover } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons'; 
 import { search } from "ionicons/icons";
 import { GlobalService } from "../../services/global/global.service";
 import { ApiService } from "../../services/api/api.service";
 import { ActivatedRoute } from '@angular/router';
-import { Router } from '@angular/router';
+import { PopoverController } from '@ionic/angular';
+import { PreSearchComponent } from "./pre-search/pre-search.component";
 
 @Component({
   selector: 'app-search-main',
   templateUrl: './search-main.component.html',
   styleUrls: ['./search-main.component.scss'],
   standalone: true,
-  imports: [ IonInput, IonButton, IonIcon, IonItem, CommonModule, FormsModule, IonSpinner ],
+  imports: [IonPopover,  IonInput, IonButton, IonIcon, IonItem, CommonModule, FormsModule, IonSpinner ],
+  providers: [PopoverController]
 })
 export class SearchMainComponent  implements OnInit {
 
   searchArticles:string = '';
-  searchInProcess: boolean = false;
 
   constructor(
     public glb: GlobalService,
-    private api: ApiService,
+    public api: ApiService,
     private route: ActivatedRoute,
-    private router: Router
+    public popoverController: PopoverController
   ) {
     addIcons({ search });
   }
@@ -34,29 +35,38 @@ export class SearchMainComponent  implements OnInit {
     this.getInitSearch();
   }
 
-  getInitSearch() {
-    /* this.route.queryParams.subscribe(params => { */
-    this.route.params.subscribe(params => {
-      if(params['search'] && params['search'] != this.glb.searchArticles){
-        console.log("search-main.component params['search']: ",params['search']);
-        this.glb.searchArticles = params['search'];
-        this.searchArticles = params['search'];
-        this.glb.pageArticles = 1;
-        console.log("search: ",this.glb.searchArticles);
-        this.search();
+  async getInitSearch() {
+    this.route.queryParams.subscribe(queryParams => {
+      if(queryParams['search']){
+        console.log("search from url: ", queryParams['search']);
+        this.glb.searchArticles = queryParams['search'];
+        this.searchArticles = queryParams['search'];
       }
+      if(queryParams['categories']){
+        console.log("categories from url: ", queryParams['categories']);
+        this.glb.categoriesSelected = queryParams['categories'].split(',');
+        this.glb.categoriesSelectedString = queryParams['categories'];
+      }
+      if(queryParams['order']){
+        console.log("order from url: ", queryParams['order']);
+        this.glb.orderArticles = queryParams['order'];
+      }
+      console.log('this.glb.searchArticles:', this.glb.searchArticles);
+      console.log('this.glb.categoriesSelected:', this.glb.categoriesSelected);
+      console.log('this.glb.categoriesSelectedString:', this.glb.categoriesSelectedString);
+      this.glb.pageArticles = 1;
+      this.search();
     });
   }
-
+  
   async search(){
     this.glb.searchArticles = this.searchArticles;
     this.glb.pageArticles = 1;
-    this.searchInProcess = true;
+    this.glb.searchInProcess = true;
     const products = await this.api.searchArticles();
     console.log('products searched:', products);
-    this.searchInProcess = false;
+    this.glb.searchInProcess = false;
     this.glb.articles = products[0];
-    /* this.glb.articles.push(...products[0]); */
     this.glb.quatntityArticles = products[1][0].Resultados;
     this.glb.pageArticlesLimit = Math.ceil(this.glb.quatntityArticles / products[1][0].PageZise);
     this.glb.categories = products[2];
@@ -65,9 +75,44 @@ export class SearchMainComponent  implements OnInit {
     console.log('this.glb.categories:', this.glb.categories);
   }
 
+  async preSearch(e: Event){
+    this.glb.pageArticles = 1;
+    this.glb.searchInProcess = true;
+    const products = await this.api.preSearchArticles(this.searchArticles);
+    this.glb.preSearchArticles = products[0].map((item:any) => item.Nombre);
+    console.log('products preSearched:', this.glb.preSearchArticles);
+    this.glb.searchInProcess = false;
+    if(!this.isPopoverOpen && this.glb.preSearchArticles.length > 0){this.presentPopover(e);}
+    if(this.glb.preSearchArticles.length == 0 || this.searchArticles == ''){
+      this.popoverController.dismiss();
+    }
+  }
+
+  popover: any;
+  isPopoverOpen: boolean = false;
+  async presentPopover(e: Event) {
+    this.isPopoverOpen = true;
+    this.popover = await this.popoverController.create({
+      component: PreSearchComponent,
+      event: e,
+      mode: 'md',
+      keyboardClose: false,
+      backdropDismiss: true,
+      cssClass: 'popover-pre-search',
+    });
+
+    await this.popover.present();
+    const { role } = await this.popover.onDidDismiss();
+    console.log(`Popover dismissed with role: ${role}`);
+    this.isPopoverOpen = false;
+  }
+
   searchRouter(){
-    /* this.router.navigate([`/home`], { queryParams: { search: this.searchArticles } }); */
-    this.router.navigate([`/home/${this.searchArticles}`]);
+    if(this.isPopoverOpen){this.popoverController.dismiss();}
+    this.glb.searchArticles = this.searchArticles;
+    this.glb.categoriesSelected = [];
+    this.glb.categoriesSelectedString = '';
+    this.glb.searchRouter();
   }
 
 }

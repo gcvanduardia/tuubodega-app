@@ -1,15 +1,20 @@
 <ion-header mode="ios">
-  <ion-toolbar mode="ios" class="no-border ion-no-padding">
+  <ion-toolbar mode="ios" class="no-border ion-no-padding" style="border-radius: 10px;">
     <ion-grid fixed class="ion-no-padding">
       <ion-row>
         <ion-col size="12">
-          <ion-toolbar mode="ios" class="no-border ion-no-padding">
+          <ion-toolbar mode="ios" class="no-border ion-no-padding ion-text-center">
             <ion-buttons slot="start">
-              <ion-text style="margin-left: 10px;">{{glb.quatntityArticles}} artículos</ion-text>
+              <ion-text style="margin-left: 10px;">{{glb.quatntityArticles}} artículos.</ion-text>
             </ion-buttons>
+            <ion-text style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; display: inline-block; max-width: 100%; margin: 0px 7px 0px 7px; padding-top: 3px;">
+              <span *ngFor="let name of getSelectedCategoryNames(); let isLast=last">
+                {{ name }}{{isLast ? '' : ', '}}
+              </span>
+            </ion-text>
             <ion-buttons slot="end">
-              <ion-button color="primary" (click)="presentPopover($event)">
-                Filtrar
+              <ion-button class="show-on-small" color="primary" (click)="presentPopover($event)">
+                Filtros
                 <ion-icon slot="end" size="small" name="chevron-down"></ion-icon>
               </ion-button>
             </ion-buttons>

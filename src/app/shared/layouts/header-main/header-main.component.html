@@ -2,8 +2,8 @@
 <ion-header mode="ios">
   <ion-toolbar color="amarillo" class="no-border">
     <ion-buttons style="width: 48px;" slot="start" *ngIf="glb.isMobile">
-      <ion-back-button defaultHref="home" mode="md" text="" *ngIf="router.url!='/home'"></ion-back-button>
-      <ion-button (click)="goToLandingPage()" *ngIf="router.url=='/home'">
+      <ion-back-button defaultHref="/" mode="md" text="" *ngIf="router.url!='/'"></ion-back-button>
+      <ion-button (click)="goToLandingPage()" *ngIf="router.url=='/'">
         <ion-icon slot="icon-only" name="arrow-back"></ion-icon>
       </ion-button>
     </ion-buttons>
@@ -12,10 +12,10 @@
         <ion-col size="12">
           <ion-toolbar color="amarillo" class="no-border border-radius ion-no-padding">
             <ion-buttons style="width: 100%;">
-              <div *ngIf="!glb.isMobile" class="center-image" slot="start" [routerLink]="['/home']" routerLinkActive="router-link-active">
+              <div *ngIf="!glb.isMobile" class="center-image" slot="start" (click)="goToLandingPage()">
                 <ion-img class="img-logo" src="assets/img/logo1.png" alt="logo web"></ion-img>
               </div>
-              <div *ngIf="glb.isMobile" class="center-image width-44" slot="start" [routerLink]="['/home']" routerLinkActive="router-link-active">
+              <div *ngIf="glb.isMobile" class="center-image width-44" slot="start" (click)="goToLandingPage()">
                 <ion-img *ngIf="glb.isMobile" class="img-logo" src="assets/icon/favicon1.png" alt="logo mobile"></ion-img>
               </div>
               <app-search-main></app-search-main>

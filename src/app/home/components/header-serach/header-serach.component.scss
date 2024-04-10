@@ -3,11 +3,11 @@ ion-toolbar {
     --border-color: #fff;
 }
 
-ion-text{
+ion-text {
     font-size: small;
 }
 
-ion-label{
+ion-label {
     font-size: small;
 }
 
@@ -19,3 +19,14 @@ ion-button {
     font-size: small;
 }
 
+/* Por defecto, el botón está oculto */
+.show-on-small {
+    display: none;
+}
+
+/* Cuando el ancho de la pantalla es 767px o menos, el botón se muestra */
+@media (max-width: 767px) {
+    .show-on-small {
+        display: block;
+    }
+}

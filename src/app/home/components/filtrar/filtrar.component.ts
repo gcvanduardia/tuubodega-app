@@ -14,8 +14,6 @@ import { FormsModule } from '@angular/forms';
 })
 export class FiltrarComponent  implements OnInit {
 
-  filterInProcess: boolean = false;
-
   constructor(
     public glb: GlobalService,
     private api: ApiService,
@@ -25,11 +23,11 @@ export class FiltrarComponent  implements OnInit {
   ngOnInit() {}
 
   async filter(){
-    this.filterInProcess = true;
+    this.glb.filterInProcess = true;
     this.glb.pageArticles = 1;
     const products = await this.api.searchArticles();
     console.log('products filter:', products);
-    this.filterInProcess = false;
+    this.glb.filterInProcess = false;
     this.glb.articles = [];
     this.glb.articles.push(...products[0]);
     this.glb.quatntityArticles = products[1][0].Resultados;
@@ -38,15 +36,16 @@ export class FiltrarComponent  implements OnInit {
   }
 
   async categoryChecked(category: string, value: any){
-    this.filterInProcess = true;
+    this.glb.filterInProcess = true;
     if(value.detail.checked){
       this.glb.categoriesSelected.push(category);
     }else{
       this.glb.categoriesSelected = this.glb.categoriesSelected.filter(item => item !== category);
     }
-    this.glb.categoriesSelectedString = this.glb.categoriesSelected.join(', ');
+    this.glb.categoriesSelectedString = this.glb.categoriesSelected.join(',');
     console.log('this.glb.categoriesSelected:', this.glb.categoriesSelectedString);
-    this.filter();
+    /* this.filter(); */
+    this.glb.searchRouter();
   }
 
   close(){

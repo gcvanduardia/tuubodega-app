@@ -1,6 +1,5 @@
 <div class="search-content">
-  <ion-input 
-    autocomplete="on" 
+  <ion-input  
     autofocus 
     clearInput 
     spellcheck 
@@ -9,10 +8,12 @@
     type="text" 
     placeholder="Busca en TuuBodega!" 
     (keyup.enter)="searchRouter()" 
-    [(ngModel)]="searchArticles">
+    [(ngModel)]="searchArticles"
+    debounce="100"
+    (ionInput)="preSearch($event)">
   </ion-input>
   <ion-button slot="end" fill="clear" aria-label="search" (click)="searchRouter()">
-      <ion-icon *ngIf="!searchInProcess" slot="icon-only" size="large" name="search" color="negro1"></ion-icon>
-      <ion-spinner *ngIf="searchInProcess" name="bubbles" color="negro1"></ion-spinner>
+      <ion-icon *ngIf="!glb.searchInProcess" slot="icon-only" size="large" name="search" color="negro1"></ion-icon>
+      <ion-spinner *ngIf="glb.searchInProcess" name="bubbles" color="negro1"></ion-spinner>
   </ion-button>
 </div>

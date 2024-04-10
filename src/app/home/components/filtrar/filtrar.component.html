@@ -11,7 +11,7 @@
             <ion-label><strong>Ordenar por:</strong> </ion-label>
           </ion-item>
           <ion-item>
-            <ion-radio-group [(ngModel)]="glb.orderArticles" (ionChange)="filter()">
+            <ion-radio-group [(ngModel)]="glb.orderArticles" (ionChange)="glb.searchRouter()">
               <ion-radio value="masRelevante">Más relevantes</ion-radio><br />
               <ion-radio value="menorPrecio">Menor precio</ion-radio><br />
               <ion-radio value="mayorPrecio">Mayor precio</ion-radio><br />
@@ -23,7 +23,10 @@
             <ion-label><strong>Categorías:</strong> </ion-label>
           </ion-item>
           <ion-item *ngFor="let category of glb.categories">
-            <ion-checkbox (ionChange)="categoryChecked(category.IdCategoria, $event)">{{category.Nombre}}</ion-checkbox>
+            <ion-checkbox (ionChange)="categoryChecked(category.IdCategoria.toString(), $event)"
+              [checked]="glb.categoriesSelected.includes(category.IdCategoria.toString())">
+              {{category.Nombre}}
+            </ion-checkbox>
           </ion-item>
         </ion-list>
       </ion-card>

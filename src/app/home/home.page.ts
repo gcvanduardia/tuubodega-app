@@ -9,7 +9,6 @@ import { SlidesMainComponent } from "../shared/components/slides-main/slides-mai
 import { RouterModule } from '@angular/router';
 import { InfiniteScrollCustomEvent } from '@ionic/angular';
 import { HeaderSerachComponent } from "./components/header-serach/header-serach.component";
-import { ActivatedRoute } from '@angular/router';
 import { FiltrarComponent } from "./components/filtrar/filtrar.component";
 
 @Component({
@@ -26,34 +25,41 @@ export class HomePage implements OnInit {
   
   constructor(
     public glb: GlobalService,
-    private api: ApiService,
-    private route: ActivatedRoute
+    private api: ApiService
   ) {}
 
   async ngOnInit() {
-    this.getInitSearch();
+    /* this.getInitSearch(); */
   }
 
-  getInitSearch() {
+  /* getInitSearch() {
     this.route.params.subscribe(params => {
       if(!params['search']){
+        console.log("Search from url: ",params['search']);
         this.glb.searchArticles = '';
-        this.getInitData();
       }
     });
-  }
+
+    this.route.queryParams.subscribe(params => {
+      if(!params['categories']){
+        console.log("Categories from url: ",params['categories']);
+        this.glb.categoriesSelected = [];
+        this.glb.categoriesSelectedString = '';
+      }
+    });
+    this.getInitData();
+  } */
 
   async getInitData() {
-    this.getInitArticles();
+    /* this.getInitArticles(); */
     this.slides = this.api.getInitSlides();
   }
 
-  async getInitArticles() {
+  /* async getInitArticles() {
     this.initArticlesSipnner = true;
     const products = await this.api.searchArticles();
     this.initArticlesSipnner = false;
     this.glb.articles = products[0];
-    /* this.glb.articles.push(...products[0]); */
     this.glb.quatntityArticles = products[1][0].Resultados;
     this.glb.pageArticlesLimit = Math.ceil(this.glb.quatntityArticles / products[1][0].PageZise);
     this.glb.categories = products[2];
@@ -61,7 +67,7 @@ export class HomePage implements OnInit {
     console.log('this.glb.quatntityArticles', this.glb.quatntityArticles)
     console.log('this.glb.pageArticlesLimit:', this.glb.pageArticlesLimit);
     console.log('this.glb.categories:', this.glb.categories);
-  }
+  } */
 
   swiperParamsSelect() {
     let swiperParams: any = {};

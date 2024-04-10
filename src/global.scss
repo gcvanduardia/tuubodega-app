@@ -53,3 +53,9 @@ ion-content {
     --width: 400px;
   }
 }
+
+.popover-pre-search{
+  --width: 50%;
+  --min-width: 375px;
+  --backdrop-opacity: 0;
+}

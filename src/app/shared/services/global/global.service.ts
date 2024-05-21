@@ -7,6 +7,8 @@ import { Router } from '@angular/router';
 })
 export class GlobalService {
 
+  public jwt: string = '';
+  public idUser: number = 0;
   public isMobile: boolean = this.plt.is('mobile');
   public searchArticles: string = '';
   public pageArticles: number = 1;
@@ -20,6 +22,8 @@ export class GlobalService {
   public filterInProcess: boolean = false;
   public searchInProcess: boolean = false;
   public preSearchArticles: any[] = [];
+
+  public user: any = {};
 
   constructor(
     public plt: Platform,

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { lastValueFrom } from 'rxjs';
+import { lastValueFrom, Observable } from 'rxjs';
 import { environment } from "../../../../environments/environment.prod";
 import { GlobalService } from "../global/global.service";
 
@@ -9,84 +9,53 @@ import { GlobalService } from "../global/global.service";
 })
 export class ApiService {
 
-  slides: any[] = [
-    {
-      web: "https://tuubodega.s3.amazonaws.com/banner-app/banner-test-web.webp",
-      mobile: "https://tuubodega.s3.amazonaws.com/banner-app/banner-test-mobile.webp",
-      isLoaded: false,
-      alt: "image 1"
-    },
-    {
-      web: "https://tuubodega.s3.amazonaws.com/banner-app/banner-test-web.webp",
-      mobile: "https://tuubodega.s3.amazonaws.com/banner-app/banner-test-mobile.webp",
-      isLoaded: false,
-      alt: "image 2"
-    },
-    {
-      web: "https://tuubodega.s3.amazonaws.com/banner-app/banner-test-web.webp",
-      mobile: "https://tuubodega.s3.amazonaws.com/banner-app/banner-test-mobile.webp",
-      isLoaded: false,
-      alt: "image 3"
-    },
-    {
-      web: "https://tuubodega.s3.amazonaws.com/banner-app/banner-test-web.webp",
-      mobile: "https://tuubodega.s3.amazonaws.com/banner-app/banner-test-mobile.webp",
-      isLoaded: false,
-      alt: "image 4"
-    },
-  ];
+  get headersGet() {
+    this.glb.jwt = localStorage.getItem('tuubodega-sesion-user') || '';
+    let headers = new HttpHeaders().set('x-api-key', environment.api.apiKey);
+    headers = headers.set('Authorization', `Bearer ${this.glb.jwt}`);
+    return headers;
+  }
 
-  headers = new HttpHeaders().set('x-api-key', 'tuubodegaAuth');
+  headers: HttpHeaders = this.headersGet;
 
   constructor(
     private http: HttpClient,
     private glb: GlobalService,
-  ) { }
+  ) { 
+    console.log('jwt:', this.glb.jwt)
+  }
 
-  async searchArticles(): Promise<any> {
+  /**
+   * Realiza una petición HTTP.
+   * @param method - Método HTTP a utilizar ('GET', 'POST', 'PUT', 'DELETE').
+   * @param url - URL de la petición.
+   * @param data - Datos a enviar en la petición (opcional).
+   * @returns Una promesa con la respuesta de la petición.
+   */
+  async sendRequest<T>(method: 'GET' | 'POST' | 'PUT' | 'DELETE', relativeUrl: string, data?: any): Promise<T> {
+    const url = `${environment.api.url}${relativeUrl}`;
     try {
-      const headers = this.headers;
-      let url = `${environment.api.url}/articulos/search?search=${this.glb.searchArticles}&pageNumber=${this.glb.pageArticles}&order=${this.glb.orderArticles}&categories=${this.glb.categoriesSelectedString}`;
-      if(this.glb.searchArticles === ''){
-        url = `${environment.api.url}/articulos/search?pageNumber=${this.glb.pageArticles}&order=${this.glb.orderArticles}&categories=${this.glb.categoriesSelectedString}`;
+      const requestStrategy = this.getRequestStrategy(method);
+      if (!requestStrategy) {
+        throw new Error(`Unsupported method: ${method}`);
       }
-      console.log('url:', url);
-      const observable = this.http.get(url, { headers });
+      const observable = requestStrategy(url, data);
       return await lastValueFrom(observable);
     } catch (error) {
-      console.error('Hubo un error al obtener los productos iniciales:', error);
-      throw error;
-    }
-  }
-  
-  async preSearchArticles(search: string): Promise<any> {
-    try {
-      const headers = this.headers;
-      let url = `${environment.api.url}/articulos/presearch?search=${search}&pageNumber=1&order=masRelevante`;
-      console.log('url:', url);
-      const observable = this.http.get(url, { headers });
-      return await lastValueFrom(observable);
-    } catch (error) {
-      console.error('Hubo un error al obtener los productos iniciales:', error);
+      console.error(`Hubo un error al realizar la petición ${method} a ${url}:`, error);
       throw error;
     }
   }
 
+  private getRequestStrategy(method: 'GET' | 'POST' | 'PUT' | 'DELETE'): (url: string, data?: any) => Observable<any> {
+    const strategies: { [key: string]: (url: string, data?: any) => Observable<any> } = {
+      'GET': (url: string) => this.http.get(url, { headers: this.headers }),
+      'POST': (url: string, data: any) => this.http.post(url, data, { headers: this.headers }),
+      'PUT': (url: string, data: any) => this.http.put(url, data, { headers: this.headers }),
+      'DELETE': (url: string) => this.http.delete(url, { headers: this.headers })
+    };
 
-
-  async getArticle(id: number): Promise<any> {
-    try {
-      const headers = this.headers;
-      const observable = this.http.get(`${environment.api.url}/articulos/articulo?id=${id}`, { headers });
-      return await lastValueFrom(observable);
-    } catch (error) {
-      console.error('Hubo un error al obtener el producto:', error);
-      throw error;
-    }
-  }
-
-  getInitSlides() {
-    return this.slides;
+    return strategies[method];
   }
 
 }

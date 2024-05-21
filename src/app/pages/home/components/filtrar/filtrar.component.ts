@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { IonHeader, IonToolbar, IonText, IonContent, IonGrid, IonRow, IonCol, IonItem, IonLabel, IonSelect, IonSelectOption, IonList, IonSpinner, IonButtons, IonFooter, IonButton, PopoverController, IonCard, IonCardSubtitle, IonCardTitle, IonCardHeader, IonRadio, IonRadioGroup, IonCheckbox } from '@ionic/angular/standalone';
-import { GlobalService } from "../../../shared/services/global/global.service";
-import { ApiService } from "../../../shared/services/api/api.service";
+import { GlobalService } from "../../../../shared/services/global/global.service";
+import { ArticlesService } from "../../../../shared/services/articles/articles.service";
 import { FormsModule } from '@angular/forms';
 
 @Component({
@@ -16,7 +16,7 @@ export class FiltrarComponent  implements OnInit {
 
   constructor(
     public glb: GlobalService,
-    private api: ApiService,
+    private api: ArticlesService,
     private popoverController: PopoverController
   ) { }
 

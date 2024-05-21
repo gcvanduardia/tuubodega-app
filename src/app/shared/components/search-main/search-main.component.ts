@@ -5,7 +5,7 @@ import { IonInput, IonButton, IonIcon, IonItem, IonSpinner, IonPopover } from '@
 import { addIcons } from 'ionicons'; 
 import { search } from "ionicons/icons";
 import { GlobalService } from "../../services/global/global.service";
-import { ApiService } from "../../services/api/api.service";
+import { ArticlesService } from "../../services/articles/articles.service";
 import { ActivatedRoute } from '@angular/router';
 import { PopoverController } from '@ionic/angular';
 import { PreSearchComponent } from "./pre-search/pre-search.component";
@@ -24,7 +24,7 @@ export class SearchMainComponent  implements OnInit {
 
   constructor(
     public glb: GlobalService,
-    public api: ApiService,
+    public api: ArticlesService,
     private route: ActivatedRoute,
     public popoverController: PopoverController
   ) {

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { IonHeader, IonToolbar, IonText, IonButtons, IonGrid, IonRow, IonCol, IonPopover, IonButton, IonIcon } from '@ionic/angular/standalone';
-import { GlobalService } from "../../../shared/services/global/global.service";
+import { GlobalService } from "../../../../shared/services/global/global.service";
 import { addIcons } from 'ionicons'; 
 import { chevronDown } from "ionicons/icons";
 import { FiltrarComponent } from "../filtrar/filtrar.component";

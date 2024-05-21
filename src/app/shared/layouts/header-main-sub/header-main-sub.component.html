@@ -1,10 +1,14 @@
 <div *ngIf="!glb.isMobile">
   <ion-button fill="clear" size="small" color="negro1" aria-label="location" (click)="ubicacion()">
     <ion-icon slot="start" name="location-outline"></ion-icon>
-    <p class="ion-no-margin ion-text-start">
-      Enviar a David<br>
-      Carrera 15 # 93-75
+    <p class="ion-no-margin ion-text-start text-ellipsis" *ngIf="glb.idUser!=0">
+      Enviar a {{glb.user.Name}}<br>
+      {{glb.user.Address}}<br>
+      {{glb.user.Pais}}-{{glb.user.Ciudad}}
     </p>
+    <ion-chip color="negro1" mode="ios" outline="true" [routerLink]="['/login']" *ngIf="glb.idUser==0">
+      <ion-label> <strong>Iniciar sesión</strong></ion-label>
+    </ion-chip>
   </ion-button>
   <ion-button fill="clear" size="small" color="negro1">
     Categorias

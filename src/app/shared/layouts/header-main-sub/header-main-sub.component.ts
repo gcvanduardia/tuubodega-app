@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { IonButton, IonIcon } from '@ionic/angular/standalone';
+import { RouterModule } from '@angular/router';
+import { IonButton, IonIcon, IonChip, IonLabel, IonRouterOutlet } from '@ionic/angular/standalone';
 import { GlobalService } from "../../services/global/global.service";
 import { addIcons } from 'ionicons'; 
 import { locationOutline } from "ionicons/icons";
@@ -10,7 +11,7 @@ import { locationOutline } from "ionicons/icons";
   templateUrl: './header-main-sub.component.html',
   styleUrls: ['./header-main-sub.component.scss'],
   standalone: true,
-  imports: [CommonModule, IonButton, IonIcon],
+  imports: [RouterModule, IonRouterOutlet, IonLabel, IonChip, CommonModule, IonButton, IonIcon],
 })
 export class HeaderMainSubComponent  implements OnInit {
 

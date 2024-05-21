@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { IonContent, IonGrid, IonRow, IonCol, IonText, IonSpinner, IonButton } from '@ionic/angular/standalone';
-import { HeaderMainComponent } from "../shared/layouts/header-main/header-main.component";
+import { HeaderMainComponent } from "../../shared/layouts/header-main/header-main.component";
 import { ActivatedRoute } from '@angular/router';
-import { ApiService } from "../shared/services/api/api.service";
+import { ArticlesService } from "../../shared/services/articles/articles.service";
 import { SlidesComponent } from "./components/slides/slides.component";
-import { GlobalService } from "../shared/services/global/global.service";
+import { GlobalService } from "../../shared/services/global/global.service";
 
 @Component({
   selector: 'app-product-description',
@@ -22,7 +22,7 @@ export class ProductDescriptionPage implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private api: ApiService,
+    private api: ArticlesService,
     public glb: GlobalService
   ) { }
 

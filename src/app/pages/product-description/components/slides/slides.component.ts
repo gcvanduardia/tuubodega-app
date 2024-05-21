@@ -3,8 +3,8 @@ import { CommonModule } from '@angular/common';
 import Swiper from 'swiper';
 import { Navigation, Pagination, Autoplay } from 'swiper/modules';
 import { Subscription, timer } from 'rxjs';
-import { GlobalService } from "../../../shared/services/global/global.service";
-import { PreloadImageDirective } from "../../../shared/utils/preload-image-directive";
+import { GlobalService } from "../../../../shared/services/global/global.service";
+import { PreloadImageDirective } from "../../../../shared/utils/preload-image-directive";
 
 @Component({
   selector: 'app-slides',

@@ -8,6 +8,6 @@ import { IonApp, IonRouterOutlet } from '@ionic/angular/standalone';
   imports: [IonApp, IonRouterOutlet],
 })
 export class AppComponent {
-  version = '0.0.002';
+  version = '0.0.050';
   constructor() {}
 }

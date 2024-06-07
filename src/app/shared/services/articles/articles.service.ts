@@ -58,6 +58,16 @@ export class ArticlesService {
     }
   }
 
+  async getDataBuyWompi(params: {id: number, cantidad: number}): Promise<any> {
+    try {
+      const url = `/payments/articulo/integrity-signature?id=${params.id}&cantidad=${params.cantidad}`;
+      return await this.api.sendRequest('GET', url);
+    } catch (error) {
+      console.error('Hubo un error al realizar la compra:', error);
+      throw error;
+    }
+  }
+
   /**
    * Construye la URL para la búsqueda de artículos.
    * @returns La URL construida.

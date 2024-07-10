@@ -70,7 +70,22 @@
           <ion-text>({{article.Cantidad}} disponibles)</ion-text>
         </p>
         <div>
-          <ion-button expand="block" shape="round" mode="ios" color="primary">
+          <ion-item>
+            <ion-input
+              label="Cantidad"
+              type="number"
+              placeholder="0"
+              min="1"
+              [max]="article.Cantidad"
+              (ionChange)="handleChangeAmount()"
+              [(ngModel)]="amountProduct"
+            />
+          </ion-item><br>
+          <ion-text>Metodo de pago</ion-text><br><br>
+          <ion-radio-group [value]="paymentMethodSelected">
+            <ion-radio value="wompi" labelPlacement="end">Wompi</ion-radio><br>
+          </ion-radio-group>
+          <ion-button expand="block" shape="round" mode="ios" color="primary" (click)="buyNow()">
             Comprar ahora
           </ion-button>
           <ion-button expand="block" shape="round" mode="ios" color="secondary">

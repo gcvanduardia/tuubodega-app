@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { IonContent, IonGrid, IonRow, IonCol, IonText, IonSpinner, IonButton, IonRadioGroup, IonRadio, IonItem, IonInput } from '@ionic/angular/standalone';
 import { HeaderMainComponent } from "../../shared/layouts/header-main/header-main.component";
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ArticlesService } from "../../shared/services/articles/articles.service";
 import { SlidesComponent } from "./components/slides/slides.component";
 import { GlobalService } from "../../shared/services/global/global.service";
@@ -25,6 +25,7 @@ export class ProductDescriptionPage implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
+    private router: Router,
     private api: ArticlesService,
     public glb: GlobalService
   ) { }
@@ -41,6 +42,10 @@ export class ProductDescriptionPage implements OnInit {
 
   async buyNow(){
     try {
+      if(this.glb.idUser === 0){
+        this.router.navigate([`/login`], { queryParams: { navigation: this.router.url } });
+        return;
+      };
       const purchaseData = await this.api.getDataBuyWompi({id: this.article.Id, cantidad: this.amountProduct});
       const publicKey = purchaseData.publicKey ?? '';
       const currency = purchaseData.currency ?? '';

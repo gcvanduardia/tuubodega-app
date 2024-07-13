@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ApiService } from "../api/api.service";
 import { GlobalService } from "../global/global.service";
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { UserService } from "../user/user.service";
 
 @Injectable({
@@ -12,6 +12,7 @@ export class AuthService {
   constructor(
     private api: ApiService,
     private glb: GlobalService,
+    private route: ActivatedRoute,
     private router: Router,
     private usr: UserService
   ) { }
@@ -45,7 +46,15 @@ export class AuthService {
     console.log('jwt:', this.glb.jwt);
     console.log('idUser:', this.glb.idUser);
     console.log('user:', this.glb.user);
-    this.router.navigate(['/']);
+    let navigation = ""
+    this.route.queryParams.subscribe(params => {
+      navigation = params['navigation'] ?? "";
+    });
+    if(navigation.length) {
+      this.router.navigate([navigation]);
+    } else {
+      this.router.navigate(['/']);
+    }
   }
 
   async sesion(): Promise<boolean> {

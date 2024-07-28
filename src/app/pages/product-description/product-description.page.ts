@@ -7,6 +7,7 @@ import { ArticlesService } from "../../shared/services/articles/articles.service
 import { SlidesComponent } from "./components/slides/slides.component";
 import { GlobalService } from "../../shared/services/global/global.service";
 import { FormsModule } from '@angular/forms';
+import { ProductService } from '../../shared/services/product-service/product.service';
 
 @Component({
   selector: 'app-product-description',
@@ -27,7 +28,8 @@ export class ProductDescriptionPage implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private api: ArticlesService,
-    public glb: GlobalService
+    public glb: GlobalService,
+    private productService: ProductService
   ) { }
 
   ngOnInit() {
@@ -40,26 +42,11 @@ export class ProductDescriptionPage implements OnInit {
     });
   }
 
-  async buyNow(){
-    try {
-      if(this.glb.idUser === 0){
-        this.router.navigate([`/login`], { queryParams: { navigation: this.router.url } });
-        return;
-      };
-      const purchaseData = await this.api.getDataBuyWompi({id: this.article.Id, cantidad: this.amountProduct});
-      const publicKey = purchaseData.publicKey ?? '';
-      const currency = purchaseData.currency ?? '';
-      const amountInCents = purchaseData.amountInCents ?? '';
-      const reference = purchaseData.reference ?? '';
-      const signature = purchaseData.integritySignature ?? '';
-      const redirectUrl = encodeURIComponent(window.location.href);
-      const urlWompi = `https://checkout.wompi.co/p/?public-key=${publicKey}&currency=${currency}&amount-in-cents=${amountInCents}&reference=${reference}&signature%3Aintegrity=${signature}&redirect-url=${redirectUrl}`;
-      window.location.href = urlWompi;
-    } catch (error) {
-      console.error('Hubo un error al realizar la compra:', error);
-    }
-
+  startPurchase() {
+    this.router.navigate(['/delivery-method']);
   }
+
+  
 
   handleChangeAmount() {
     if(this.amountProduct >= this.article.Cantidad){
@@ -75,6 +62,7 @@ export class ProductDescriptionPage implements OnInit {
       this.article = articleRes;
       this.adaptArticle();
       console.log("article: ",this.article);
+      this.productService.setProductInfo(this.article);
     }
   }
 

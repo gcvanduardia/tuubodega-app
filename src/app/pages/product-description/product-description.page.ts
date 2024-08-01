@@ -7,6 +7,7 @@ import { ArticlesService } from "../../shared/services/articles/articles.service
 import { SlidesComponent } from "./components/slides/slides.component";
 import { GlobalService } from "../../shared/services/global/global.service";
 import { FormsModule } from '@angular/forms';
+import { CartService } from 'src/app/shared/services/cart/cart.service';
 
 @Component({
   selector: 'app-product-description',
@@ -27,6 +28,7 @@ export class ProductDescriptionPage implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private api: ArticlesService,
+    private apiCart: CartService,
     public glb: GlobalService
   ) { }
 
@@ -65,6 +67,17 @@ export class ProductDescriptionPage implements OnInit {
     if(this.amountProduct >= this.article.Cantidad){
       this.amountProduct = this.article.Cantidad;
     }
+    if(this.amountProduct <= 0){
+      this.amountProduct = 1;
+    }
+  }
+
+  async addToCart(){
+    if(this.glb.idUser === 0){
+      this.router.navigate([`/login`], { queryParams: { navigation: this.router.url } });
+      return;
+    };
+    await this.apiCart.addArticle(this.id, this.amountProduct);
   }
 
   async getArticle() {

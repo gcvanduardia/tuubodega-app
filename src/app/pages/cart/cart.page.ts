@@ -71,18 +71,21 @@ export class CartPage  implements OnInit {
     if(product.Cantidad < 1){
       product.Cantidad = 1;
     }
-    await this.api.updateAmountArticle(product.IdArticulo, product.Cantidad)
+    await this.api.updateAmountArticle(product.IdArticulo, product.Cantidad);
+    this.getSummaryCart();
   };
 
   async handleDeleteProduct(product: ICartArticle) {
     try {
       await this.api.deleteArticle(product.IdArticulo)
       this.getCartList();
+      this.api.getAmountCart();
     } catch (error) {}
   }
 
   async clearCart() {
     await this.api.clearCart();
+    this.api.getAmountCart();
     this.goHome();
   }
 }

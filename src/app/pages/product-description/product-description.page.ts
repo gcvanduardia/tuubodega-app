@@ -78,6 +78,7 @@ export class ProductDescriptionPage implements OnInit {
       return;
     };
     await this.apiCart.addArticle(this.id, this.amountProduct);
+    this.apiCart.getAmountCart();
   }
 
   async getArticle() {

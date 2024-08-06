@@ -2,9 +2,9 @@ import { Injectable } from '@angular/core';
 import { ApiService } from "../api/api.service";
 import { GlobalService } from "../global/global.service";
 
-export interface IResponseCartArticle {
+export interface IResponseCart<T> {
   Message: string;
-  data: ICartArticle[];
+  data: T;
 }
 export interface ICartArticle {
   Cantidad: number;
@@ -16,10 +16,6 @@ export interface ICartArticle {
   PrecioUnit: number;
   IdArticulo: number;
 }
-export interface IResponseSummaryCart {
-  Message: string;
-  data: number;
-}
 export interface IResponseWompipayment {
   amountInCents: number;
   currency: string;
@@ -27,7 +23,6 @@ export interface IResponseWompipayment {
   publicKey: string;
   reference: string;
 }
-
 @Injectable({
   providedIn: 'root'
 })
@@ -58,7 +53,7 @@ export class CartService {
   */
   async getCartList() {
     try {
-      const data = await this.api.sendRequest<IResponseCartArticle>('GET', '/cart/article');
+      const data = await this.api.sendRequest<IResponseCart<ICartArticle[]>>('GET', '/cart/article');
       return data.data ?? [];
     } catch (error) {
       console.error('Hubo un error al obtener el carrito de artículos:', error);
@@ -68,7 +63,7 @@ export class CartService {
 
   async getSummaryCart() {
     try {
-      const data = await this.api.sendRequest<IResponseSummaryCart>('GET', '/cart/summary');
+      const data = await this.api.sendRequest<IResponseCart<number>>('GET', '/cart/summary');
       return data?.data ?? 0;
     } catch (error) {
       console.error('Hubo un error al obtener el resumen del carrito:', error);
@@ -118,6 +113,23 @@ export class CartService {
       const data = await this.api.sendRequest('POST', `/cart/article`, { idArticulo, cantidad });
     } catch (error) {
       console.error('Hubo un error al agregar el artículo al carrito:', error);
+      throw error;
+    }
+  }
+
+  /**
+   * Obtiene la cantidad de artículos en el carrito.
+   * @returns Una promesa con la cantidad de artículos en el carrito.
+   * @throws Un error si no se puede obtener la cantidad de artículos en el carrito.
+  */
+  async getAmountCart() {
+    try {
+      const data = await this.api.sendRequest<IResponseCart<number>>('GET', '/cart/count');
+      if (data) {
+        this.glb.cartAmount = data?.data ?? 0;
+      }
+    } catch (error) {
+      console.error('Hubo un error al obtener la cantidad del carrito:', error);
       throw error;
     }
   }

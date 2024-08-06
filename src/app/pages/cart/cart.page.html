@@ -1,0 +1,104 @@
+<app-header-main></app-header-main>
+
+<ion-content>
+  <ion-grid fixed style="min-width: 70%;">
+    <div class="header">
+      <div class="content-title">
+        <ion-icon slot="icon-only" name="cart-outline" size="large"></ion-icon>
+        <ion-text><h1 style="margin: 0;"><b>Mi carrito</b></h1></ion-text>
+      </div>
+      <ion-button *ngIf="products.length" expand="block" mode="ios" color="danger" size="small" (click)="clearCart()">
+        Vaciar Carrito
+      </ion-button>
+    </div>
+    <ion-row *ngIf="products.length">
+      <ion-col class="col-products" sizeSm="12" sizeMd="6" sizeLg="6" sizeXl="7">
+
+        <!-- Products -->
+        <div *ngFor="let product of products" class="card-product">
+          <ion-row>
+            <ion-col size="5">
+              <ion-card>
+                <ion-img [src]="product.ImagenPrin" alt="Imagen Producto" />
+              </ion-card>
+            </ion-col>
+            <ion-col size="6">
+              <div class="content">
+                <ion-text color="medium" class="card-text-name"><b>{{ product.Nombre }}</b></ion-text>
+                <div class="content-amount">
+                  <ion-text color="medium"><b>Cantidad</b></ion-text>
+                  <ion-item>
+                    <ion-input
+                      type="number"
+                      placeholder="0"
+                      min="1"
+                      [max]="article.Cantidad"
+                      (ionChange)="handleChangeAmount(product)"
+                      [(ngModel)]="product.Cantidad"
+                    />
+                  </ion-item>
+                </div>
+                <ion-text color="medium" class="card-text-price"><b>{{ product.PrecioTotal | currency:'$':'symbol':'1.0-0' }}</b></ion-text>
+              </div>
+            </ion-col>
+            <ion-col size="1">
+              <p>
+                <ion-icon slot="icon-only" name="trash-outline" color="medium" (click)="handleDeleteProduct(product)"></ion-icon>
+              </p>
+            </ion-col>
+          </ion-row>
+        </div>
+
+        <!-- Summary mobile -->
+        <ion-card class="card-summary-mobile">
+          <ion-card-title><b style="font-size: 26px;">Detalle del pedido</b></ion-card-title>
+          <ion-text style="display: flex; justify-content: space-between; margin-top: 22px;">
+            <b>Produtos</b>
+            {{ summary | currency:'$':'symbol':'1.0-0' }}
+          </ion-text>
+          <ion-text style="display: flex; justify-content: space-between; margin-top: 22px; font-size: 18px;">
+            <b>TOTAL A PAGAR</b>
+            {{ summary | currency:'$':'symbol':'1.0-0' }}
+          </ion-text>
+          <ion-button expand="block" shape="round" mode="ios" color="primary" (click)="buyNow()">
+            Comprar ahora
+          </ion-button>
+        </ion-card>
+
+      </ion-col>
+
+      <!-- Summary -->
+      <ion-col sizeXs="12" sizeMd="6" sizeLg="6" sizeXl="5">
+        <ion-card class="card-summary">
+          <ion-card-title><b style="font-size: 26px;">Detalle del pedido</b></ion-card-title>
+          <ion-text style="display: flex; justify-content: space-between; margin-top: 22px;">
+            <b>Produtos</b>
+            {{ summary | currency:'$':'symbol':'1.0-0' }}
+          </ion-text>
+          <ion-text style="display: flex; justify-content: space-between; margin-top: 22px; font-size: 18px;">
+            <b>TOTAL A PAGAR</b>
+            {{ summary | currency:'$':'symbol':'1.0-0' }}
+          </ion-text>
+          <ion-button expand="block" shape="round" mode="ios" color="primary" (click)="buyNow()">
+            Comprar ahora
+          </ion-button>
+        </ion-card>
+      </ion-col>
+
+    </ion-row>
+    <ion-row *ngIf="!products.length" style="justify-content: center;">
+      <ion-col sizeSm="12" sizeMd="6" sizeLg="6" sizeXl="7">
+        <ion-card style="border-radius: 20px;">
+          <ion-card-content>
+            <ion-text>
+              <h1 style="text-align: center;">No hay productos en el carrito</h1>
+            </ion-text>
+            <ion-button expand="block" mode="ios" color="primary" (click)="goHome()">
+              Ir a Comprar
+            </ion-button>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

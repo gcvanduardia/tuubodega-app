@@ -24,6 +24,7 @@ export class GlobalService {
   public preSearchArticles: any[] = [];
 
   public user: any = {};
+  public cartAmount: number = 0;
 
   constructor(
     public plt: Platform,

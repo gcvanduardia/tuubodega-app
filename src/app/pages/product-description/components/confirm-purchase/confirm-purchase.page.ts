@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { HeaderMainComponent } from "../../../../shared/layouts/header-main/header-main.component";
 import { IonContent, IonGrid, IonRow, IonCol, IonText, IonSpinner, IonButton, IonRadioGroup, IonRadio, IonItem, IonInput, IonImg } from '@ionic/angular/standalone';
 import { ProductService } from '../../../../shared/services/product-service/product.service';
@@ -15,25 +15,47 @@ import { GlobalService } from "../../../../shared/services/global/global.service
 })
 export class ConfirmPurchasePage implements OnInit {
   productInfo: any;
+  cod: any;
+  idProducto: number = 0;
+  idUsuario: number = 0;
 
   constructor(private router: Router, 
   private productService: ProductService,
+  private route: ActivatedRoute,
   public glb: GlobalService,
   private api: ArticlesService
 ) {}
 
   ngOnInit() {
-    this.productInfo = this.productService.getProductInfo();
+    this.route.params.subscribe(params => {
+      this.cod = params['cod'];
+      this.idProducto = +params['idProducto'];
+      this.idUsuario = +params['idUsuario'];
+      this.loadProductInfo();
+    });
+  }
+
+  async loadProductInfo() {
+    try {
+      const response = await this.productService.getProductInfo(this.cod, this.idProducto, this.idUsuario);
+      console.log('Respuesta de la API:', response);
+      console.log('price *********', response.PrecioUnit);
+      this.productInfo = response;
+    } catch (error) {
+      console.error('Error al obtener la información del producto:', error);
+    }
   }
 
   completePurchase() {
     console.log("productInfo", this.productInfo);
   }
 
-  formatPrice(price: number): string {
+  formatPrice(price: number | null | undefined): string {
+    if (price == null) {
+        return '$0.00';
+    }
     return `$${price.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')}`;
-  }
-
+}
   calculateTotal(): string {
     if (this.productInfo) {
       const total = this.productInfo.PrecioUnit * this.productInfo.Cantidad;
@@ -48,7 +70,7 @@ export class ConfirmPurchasePage implements OnInit {
         this.router.navigate(['/login'], { queryParams: { navigation: this.router.url } });
         return;
       }
-      const purchaseData = await this.api.getDataBuyWompi({ id: this.productInfo.Id, cantidad: this.productInfo.Cantidad});
+      const purchaseData = await this.api.getDataBuyWompi({ id: this.productInfo.IdProducto, cantidad: this.productInfo.Cantidad});
       const publicKey = purchaseData.publicKey ?? '';
       const currency = purchaseData.currency ?? '';
       const amountInCents = purchaseData.amountInCents ?? '';

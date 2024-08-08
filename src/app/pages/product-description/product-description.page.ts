@@ -43,7 +43,8 @@ export class ProductDescriptionPage implements OnInit {
   }
 
   startPurchase() {
-    this.router.navigate(['/delivery-method']);
+    this.router.navigate([`/delivery-method/${this.article.Cod}/${this.article.Id}/${this.glb.user.IdUser}`]);
+    this.productService.setProductInfo(this.article);
   }
 
   
@@ -61,8 +62,6 @@ export class ProductDescriptionPage implements OnInit {
     if(articleRes){
       this.article = articleRes;
       this.adaptArticle();
-      console.log("article: ",this.article);
-      this.productService.setProductInfo(this.article);
     }
   }
 

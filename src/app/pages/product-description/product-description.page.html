@@ -28,10 +28,11 @@
               placeholder="0"
               min="1"
               [max]="article.Cantidad"
-              (ionChange)="handleChangeAmount()"
               [(ngModel)]="amountProduct"
+              (ionInput)="handleChangeAmount()"
             />
-          </ion-item><br>
+          </ion-item>
+          <br>
           <ion-text>Metodo de pago</ion-text><br><br>
           <ion-radio-group [value]="paymentMethodSelected">
             <ion-radio value="wompi" labelPlacement="end">Wompi</ion-radio><br>

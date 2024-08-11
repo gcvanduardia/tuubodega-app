@@ -15,9 +15,7 @@ import { GlobalService } from "../../../../shared/services/global/global.service
 })
 export class ConfirmPurchasePage implements OnInit {
   productInfo: any;
-  cod: any;
-  idProducto: number = 0;
-  idUsuario: number = 0;
+  idCotizacion: number | null = null;
 
   constructor(private router: Router, 
   private productService: ProductService,
@@ -28,21 +26,23 @@ export class ConfirmPurchasePage implements OnInit {
 
   ngOnInit() {
     this.route.params.subscribe(params => {
-      this.cod = params['cod'];
-      this.idProducto = +params['idProducto'];
-      this.idUsuario = +params['idUsuario'];
+      this.idCotizacion = params['idCotizacion'];
       this.loadProductInfo();
     });
   }
 
   async loadProductInfo() {
-    try {
-      const response = await this.productService.getProductInfo(this.cod, this.idProducto, this.idUsuario);
-      console.log('Respuesta de la API:', response);
-      console.log('price *********', response.PrecioUnit);
-      this.productInfo = response;
-    } catch (error) {
-      console.error('Error al obtener la información del producto:', error);
+    if (this.idCotizacion !== null) {
+      try {
+        const response = await this.productService.getProductInfo(this.idCotizacion);
+        console.log('Respuesta de la API:', response);
+        console.log('price *********', response.PrecioUnit);
+        this.productInfo = response;
+      } catch (error) {
+        console.error('Error al obtener la información del producto:', error);
+      }
+    } else {
+      console.error('idCotizacion es null');
     }
   }
 

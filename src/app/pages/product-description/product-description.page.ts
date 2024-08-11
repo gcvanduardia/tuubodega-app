@@ -42,17 +42,23 @@ export class ProductDescriptionPage implements OnInit {
     });
   }
 
-  startPurchase() {
-    this.router.navigate([`/delivery-method/${this.article.Cod}/${this.article.Id}/${this.glb.user.IdUser}`]);
-    this.productService.setProductInfo(this.article);
-  }
+  async startPurchase() {
+    await this.productService.setProductInfo(this.article, this.amountProduct);  // Esperar a que se complete la configuración
+    const idCotizacion = this.productService.getIdCotizacion();
+    if (idCotizacion) {
+        console.log('Id Cotizacion:', idCotizacion);
+        this.router.navigate([`/delivery-method/${idCotizacion}`]);
+    } else {
+        console.error('Error: idCotizacion is null or undefined');
+    }
+}
 
-  
 
   handleChangeAmount() {
-    if(this.amountProduct >= this.article.Cantidad){
+    if (this.amountProduct > this.article.Cantidad) {
       this.amountProduct = this.article.Cantidad;
     }
+    console.log("Cantidad###########", this.amountProduct);
   }
 
   async getArticle() {

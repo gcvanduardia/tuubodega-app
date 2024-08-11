@@ -1,0 +1,21 @@
+<app-header-main></app-header-main>
+<ion-content>
+  <ion-grid fixed>
+    <ion-row>
+      <ion-col size="12">
+        <h1>Seleccione el Método de Entrega</h1>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size="12">
+        <!-- Opciones de método de entrega aquí -->
+        <ion-button expand="block" shape="round" mode="ios" color="primary" (click)="selectMethod('Domicilio')">
+          Entrega a domicilio: {{glb.user.Address}}
+        </ion-button>
+        <ion-button expand="block" shape="round" mode="ios" color="secondary" (click)="selectMethod('Tienda')">
+          Recoger en tienda
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

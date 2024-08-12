@@ -3,6 +3,7 @@ import { ApiService } from "../api/api.service";
 import { GlobalService } from "../global/global.service";
 import { ActivatedRoute, Router } from '@angular/router';
 import { UserService } from "../user/user.service";
+import { CartService } from '../cart/cart.service';
 
 @Injectable({
   providedIn: 'root'
@@ -13,6 +14,7 @@ export class AuthService {
     private api: ApiService,
     private glb: GlobalService,
     private route: ActivatedRoute,
+    private cart: CartService,
     private router: Router,
     private usr: UserService
   ) { }
@@ -50,6 +52,7 @@ export class AuthService {
     this.route.queryParams.subscribe(params => {
       navigation = params['navigation'] ?? "";
     });
+    this.cart.getAmountCart();
     if(navigation.length) {
       this.router.navigate([navigation]);
     } else {

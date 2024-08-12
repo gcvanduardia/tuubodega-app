@@ -29,11 +29,15 @@
                   <ion-icon slot="icon-only" name="menu-outline"></ion-icon>
                 </ion-button>
               </ion-menu-toggle> -->
-              <ion-button *ngIf="glb.isMobile" fill="clear" aria-label="cart">
+              <!-- <ion-button *ngIf="glb.isMobile" fill="clear" aria-label="cart">
                 <ion-icon slot="icon-only" name="cart-outline" size="large"></ion-icon>
-              </ion-button>
+              </ion-button> -->
               <ion-button id="click-trigger">
                 <ion-icon slot="icon-only" name="person-outline"></ion-icon>
+              </ion-button>
+              <ion-button *ngIf="glb.idUser !== 0" fill="clear" aria-label="cart" [routerLink]="['/cart']">
+                <ion-icon slot="icon-only" name="cart-outline" size="large"></ion-icon>
+                <ion-badge *ngIf="glb.cartAmount" slot="end">{{ glb.cartAmount }}</ion-badge>
               </ion-button>
               <ion-popover trigger="click-trigger" triggerAction="click" class="popover">
                 <ng-template>

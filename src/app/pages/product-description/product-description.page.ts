@@ -31,7 +31,7 @@ export class ProductDescriptionPage implements OnInit {
     private router: Router,
     private api: ArticlesService,
     private apiCart: CartService,
-    public glb: GlobalService
+    public glb: GlobalService,
     private productService: ProductService
   ) { }
 

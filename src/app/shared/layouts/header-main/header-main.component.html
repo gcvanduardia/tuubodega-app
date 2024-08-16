@@ -35,10 +35,10 @@
               <ion-button id="click-trigger">
                 <ion-icon slot="icon-only" name="person-outline"></ion-icon>
               </ion-button>
-              <ion-button *ngIf="glb.idUser !== 0" fill="clear" aria-label="cart" [routerLink]="['/cart']">
+              <ion-button *ngIf="glb.idUser !== 0" fill="clear" aria-label="cart" [routerLink]="['/cart']" class="cart-button-container">
                 <ion-icon slot="icon-only" name="cart-outline" size="large"></ion-icon>
-                <ion-badge *ngIf="glb.cartAmount" slot="end">{{ glb.cartAmount }}</ion-badge>
-              </ion-button>
+                <ion-badge *ngIf="glb.cartAmount" slot="end" class="cart-badge">{{ glb.cartAmount }}</ion-badge>
+              </ion-button>              
               <ion-popover trigger="click-trigger" triggerAction="click" class="popover">
                 <ng-template>
                   <app-menu-user></app-menu-user>

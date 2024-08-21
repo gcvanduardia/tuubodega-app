@@ -9,5 +9,6 @@ export const routes: Routes = [
   { path: 'payment-method/:idCotizacion', loadComponent: () => import('./pages/product-description/components/payment-method/payment-method.page').then(m => m.PaymentMethodPage) },
   { path: 'confirm-purchase/:idCotizacion', loadComponent: () => import('./pages/product-description/components/confirm-purchase/confirm-purchase.page').then(m => m.ConfirmPurchasePage) },
   { path: 'cart', loadComponent: () => import('./pages/cart/cart.page').then( m => m.CartPage), canActivate: [AuthGuard] },
+  { path: 'register', loadComponent: () => import('./pages/register/register.page').then(m => m.RegisterPage), canActivate: [AuthGuard] },
   { path: 'login', loadComponent: () => import('./pages/login/login.page').then(m => m.LoginPage), canActivate: [AuthGuard] }
 ];

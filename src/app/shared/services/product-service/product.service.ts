@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, window } from 'rxjs';
 import { ApiService } from '../api/api.service';
 import { GlobalService } from '../global/global.service';
+import { AuthService } from '../auth/auth.service';
+import { Router } from '@angular/router';
 
 interface ApiResponse {
   IdCotizacion: number;
@@ -15,11 +17,13 @@ export class ProductService {
   private productInfoSubject = new BehaviorSubject<any>(null);
   productInfo$ = this.productInfoSubject.asObservable();
   private glb: GlobalService;
+  private auth: AuthService;
   private idCotizacion: number | null = null;
   
 
-  constructor(private apiService: ApiService, glb: GlobalService) {
+  constructor(private apiService: ApiService, glb: GlobalService, auth: AuthService, private router: Router) {
     this.glb = glb;
+    this.auth = auth;
   }
 
   async setProductInfo(productInfo: any, cantidad: number) {
@@ -34,6 +38,7 @@ export class ProductService {
         "IdSubCategoria1": productInfo.IdSubCategoria1,
         "Imagenes": productInfo.Imagenes,
         "ImagenesArray": productInfo.ImagenesArray,
+        "ImagenPrin": productInfo.ImagenPrin,
         "Nombre": productInfo.Nombre,
         "PrecioUnit": productInfo.PrecioUnit,
         "DeliveryMethod": null,
@@ -87,4 +92,34 @@ export class ProductService {
       throw error;
     }
   }
+
+  async getUserByIdCotizacion(idCotizacion: number) {
+    try {
+      const response: any = await this.apiService.sendRequest('GET', `/payments/cotizaciones/getIdUser/${idCotizacion}`);
+      return response;
+    } catch (error) {
+      console.error('Error al comunicarse con la API:', error);
+      throw error;
+    }
+  }
+
+  async compareIdUsers(idCotizacion: number | null) {
+    if(this.glb.idUser === 0){
+      await this.auth.sesion();
+    }
+    console.log('***idUser:', this.glb.idUser);
+
+    if (idCotizacion !== null) {
+      const result = await this.getUserByIdCotizacion(idCotizacion);
+      console.log('********IdUserCotizacion:', result.IdUsuario);
+      console.log('********IdProducto: ', result.IdProducto);
+
+      if(this.glb.idUser !== result.IdUsuario){
+        this.router.navigate(['/product-description/', result.IdProducto]);
+      }
+    } else {
+      console.error('idCotizacion es null');
+    }
+  }
+ 
 }

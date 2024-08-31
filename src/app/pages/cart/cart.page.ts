@@ -6,6 +6,7 @@ import { trashOutline } from "ionicons/icons";
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { CartService, ICartArticle } from 'src/app/shared/services/cart/cart.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-cart',
@@ -19,12 +20,14 @@ export class CartPage  implements OnInit {
   article = {
     Cantidad: 5
   }
+  idOrden: number | null = null;
   products: ICartArticle[] = [];
   summary: number = 0;
   amountProduct: number = 1;
 
   constructor(
-    private api: CartService
+    private api: CartService,
+    private router: Router
   ) {
     addIcons({ trashOutline })
   }
@@ -32,6 +35,12 @@ export class CartPage  implements OnInit {
   async ngOnInit() {
     await this.getCartList();
     await this.getSummaryCart();
+  }
+
+  async startPurchase() {
+    await this.api.createCotizacionOrden(2);
+    this.idOrden = this.api.getOrdenId();
+    this.router.navigate([`/delivery-method/cart/${this.idOrden}`]);
   }
 
   async buyNow(){

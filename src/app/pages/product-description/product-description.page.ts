@@ -47,6 +47,7 @@ export class ProductDescriptionPage implements OnInit {
 
   async startPurchase() {
     await this.productService.setProductInfo(this.article, this.amountProduct);
+    console.log('Articulo Info*********', this.article);
     const idCotizacion = this.productService.getIdCotizacion();
     if (idCotizacion) {
         console.log('Id Cotizacion:', idCotizacion);

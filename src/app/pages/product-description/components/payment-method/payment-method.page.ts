@@ -3,6 +3,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { HeaderMainComponent } from "../../../../shared/layouts/header-main/header-main.component";
 import { IonContent, IonGrid, IonRow, IonCol, IonText, IonSpinner, IonButton, IonRadioGroup, IonRadio, IonItem, IonInput } from '@ionic/angular/standalone';
 import { ProductService } from '../../../../shared/services/product-service/product.service';
+import { CartService } from 'src/app/shared/services/cart/cart.service';
 
 @Component({
   selector: 'app-payment-method',
@@ -13,22 +14,57 @@ import { ProductService } from '../../../../shared/services/product-service/prod
 })
 export class PaymentMethodPage {
   idCotizacion: number | null = null;
-  constructor(private router: Router, private route: ActivatedRoute, private productService: ProductService) {}
+  idOrden: number | null = null;
+  isCart: boolean = false;
+  constructor(private router: Router, private route: ActivatedRoute, private productService: ProductService, private cartService: CartService) {}
 
 
   ngOnInit() {
     this.route.params.subscribe(params => {
-      this.idCotizacion = params['idCotizacion'];
-      console.log('idCotizacion', this.idCotizacion);
+      if (params['idCotizacion']) {
+        this.idCotizacion = +params['idCotizacion'];
+        this.isCart = false;
+        console.log('idCotizacion', this.idCotizacion);
+        this.initCotizacion();
+      } else if (params['idOrden']) {
+        this.idOrden = +params['idOrden'];
+        this.isCart = true;
+        console.log('idOrden', this.idOrden);
+        this.initCart();
+      }
     });
   }
 
   selectMethod(method: string) {
-    if (this.idCotizacion !== null) {
-      this.productService.setPaymentMethod(method, this.idCotizacion);
+    if (this.isCart && this.idOrden !== null) {
+      // Lógica para cart
+      this.cartService.setPaymentMethod(method, this.idOrden);
+      console.log('Método de entrega seleccionado para cart', method);
+      this.router.navigate([`/confirm-purchase/cart/${this.idOrden}`]);
+
+      
+    } else if (!this.isCart && this.idCotizacion !== null) {
+      // Lógica para cotización
+      this.productService.setDeliveryMethod(method, this.idCotizacion);
       this.router.navigate([`/confirm-purchase/${this.idCotizacion}`]);
     } else {
-      console.error('idCotizacion is null');
+      console.error('idCotizacion or idOrden is null');
     }
+  }
+
+  async initCotizacion(){
+    this.productService.compareIdUsers(this.idCotizacion);
+  }
+
+  async initCart(){
+    // Lógica para inicializar el cart
+    console.log('Inicializando cart con idOrden:', this.idOrden);
+    if (this.idOrden !== null) {
+      this.cartService.getCotizacion(this.idOrden);
+    }
+    else{
+      console.error('idOrden is null');
+    }
+    // this.productService.compareIdUsers(this.idOrden);
   }
 }

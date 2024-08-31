@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ApiService } from "../api/api.service";
 import { GlobalService } from "../global/global.service";
+import { DeliveryMethodPage } from 'src/app/pages/product-description/components/delivery-method/delivery-method.page';
 
 export interface IResponseCart<T> {
   Message: string;
@@ -22,16 +23,22 @@ export interface IResponseWompipayment {
   integritySignature: string;
   publicKey: string;
   reference: string;
+  idOrden: number;
 }
+
+export interface IResponseCreateCotizacion {
+  idOrden: number;
+}
+
 @Injectable({
   providedIn: 'root'
 })
-
 export class CartService {
+  public idOrden: number | null = null;
 
   constructor(
     private api: ApiService,
-    public glb: GlobalService
+    public glb: GlobalService,
   ) {}
 
   /**
@@ -40,11 +47,41 @@ export class CartService {
    */
   async buyNow() {
     try {
-      return await this.api.sendRequest<IResponseWompipayment>('POST', '/order');
+      const response = await this.api.sendRequest<IResponseWompipayment>('POST', '/order');
+      this.idOrden = response.idOrden
+      return response;
     } catch (error) {
       console.error('Hubo un error al realizar la compra:', error);
       throw error;
     }
+  }
+
+  async getDataBuyWompi(params: {id: number}): Promise<any> {
+    try {
+      const url = `/payments/orden/buyNow/${params.id}`;
+      return await this.api.sendRequest('GET', url);
+    } catch (error) {
+      console.error('Hubo un error al realizar la compra:', error);
+      throw error;
+    }
+  }
+
+  async createCotizacionOrden(idUser: number) {
+    try {
+      const response = await this.api.sendRequest<IResponseCreateCotizacion>('GET', `/order/createCotizacion/${idUser}`);
+      console.log('Respuesta##################:', response);
+      this.idOrden = response.idOrden
+      console.log('Id Orden:', this.idOrden);
+      return response;
+    } catch (error) {
+      console.error('Hubo un error al realizar la cotizacion:', error);
+      throw error;
+    }
+  }
+
+  getOrdenId(){
+    console.log('Id Orden:', this.idOrden);
+    return this.idOrden;
   }
 
   /**
@@ -139,6 +176,53 @@ export class CartService {
       await this.api.sendRequest('GET', '/cart/empty');
     } catch (error) {
       console.error('Hubo un error al limpiar el carrito:', error);
+      throw error;
+    }
+  }
+
+  async getCotizacion(idOrden: number) {
+    try {
+      const data = await this.api.sendRequest('GET', `/order/getCotizacion/${idOrden}`);
+      console.log('*******Orden:', data);
+      return data;
+    } catch (error) {
+      console.error('Hubo un error al obtener la orden:', error);
+      throw error;
+    }
+  }
+
+  async getProductosOrden(idOrden: number) {
+    try {
+      const data = await this.api.sendRequest('GET', `/order/getProductos/${idOrden}`);
+      return data;
+    } catch (error) {
+      console.error('Hubo un error al obtener los productos de la orden:', error);
+      throw error;
+    }
+  }
+
+  async setDeliveryMethod(method: string, idOrden: number) {
+    const updateData = {
+      DeliveryMethod: method
+    };
+    try {
+      const response: any = await this.api.sendRequest('PUT', `/order/updateOrdenMethods/${idOrden}`, updateData);
+      return response;
+    } catch (error) {
+      console.error('Error al comunicarse con la API:', error);
+      throw error;
+    }
+  }
+
+  async setPaymentMethod(method: string, idOrden: number) {
+    const updateData = {
+      PaymentMethod: method
+    };
+    try {
+      const response: any = await this.api.sendRequest('PUT', `/order/updateOrdenMethods/${idOrden}`, updateData);
+      return response;
+    } catch (error) {
+      console.error('Error al comunicarse con la API:', error);
       throw error;
     }
   }

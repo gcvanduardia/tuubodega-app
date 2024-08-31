@@ -1,5 +1,5 @@
 <app-header-main></app-header-main>
-<ion-content>
+<ion-content *ngIf="!isCart">
   <ion-grid fixed>
     <ion-row>
       <ion-col size="12">
@@ -18,7 +18,7 @@
         </p>
       </ion-col>
       <ion-col size="6">
-        <ion-img [src]="productInfo?.ImagenesArray[1]"></ion-img>
+        <ion-img [src]="productInfo?.ImagenPrin"></ion-img>
       </ion-col>
     </ion-row>
     <ion-row>
@@ -30,3 +30,28 @@
     </ion-row>
   </ion-grid>
 </ion-content>
+
+
+<ion-content *ngIf="isCart">
+  <ion-grid fixed>
+    
+      <ion-row>
+        <ion-card *ngFor="let producto of productos" class="card-product">
+            <p>
+              <strong>Nombre:</strong> {{ producto.details?.Nombre }}<br>
+              <strong>Precio Unidad:</strong> {{ formatPrice(producto.details?.PrecioUnit) }}
+            </p>
+            <ion-img [src]="producto.details?.ImagenPrin" alt="{{ producto.details?.Nombre }}"></ion-img>
+        </ion-card>
+      </ion-row>
+      <ion-row>
+        <ion-col size="12" class="ion-text-center">
+          <ion-button expand="block" shape="round" mode="ios" color="primary" (click)="buyNowCart()">
+            Confirmar Compra
+          </ion-button>
+        </ion-col>
+      </ion-row>
+    
+  </ion-grid>
+</ion-content>
+

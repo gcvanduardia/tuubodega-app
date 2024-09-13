@@ -29,20 +29,20 @@ export class ProductService {
   async setProductInfo(productInfo: any, cantidad: number) {
     try {
       const response = await this.apiService.sendRequest<ApiResponse>('POST', '/payments/cotizaciones', {
+        "Descripcion": productInfo.Descripcion[0].valor,
         "IdUsuario": this.glb.user.IdUser,
         "IdProducto": productInfo.Id,
-        "Cantidad": cantidad,
-        "Codigo": productInfo.Cod,
-        "Descripcion": productInfo.Descripcion,
         "IdCategoria": productInfo.IdCategoria,
-        "IdSubCategoria1": productInfo.IdSubCategoria1,
-        "Imagenes": productInfo.Imagenes,
-        "ImagenesArray": productInfo.ImagenesArray,
-        "ImagenPrin": productInfo.ImagenPrin,
-        "Nombre": productInfo.Nombre,
-        "PrecioUnit": productInfo.PrecioUnit,
+        "Marca": productInfo.Marca,
+        "Modelo": productInfo.Modelo,
+        "SKU": productInfo.SKU,
+        "Stock": cantidad,
+        "Nombre": productInfo.Titulo,
+        "UrlFotos": productInfo.UrlFotos[0],
+        "Usr": productInfo.Usr,
         "DeliveryMethod": null,
-        "PaymentMethod": null
+        "PaymentMethod": null,
+        "ValorUnt": productInfo.ValorUnt
       });
       console.log('Respuesta de la API:', response);
       console.log('******Id Cotizacion:', response.IdCotizacion);

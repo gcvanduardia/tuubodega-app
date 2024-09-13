@@ -58,12 +58,33 @@ export class ArticlesService {
     }
   }
 
+  async getDenarioArticle(id: number): Promise<any> {
+    try {
+      const url = `/articulos/getDenarioArticle/${id}`;
+      return await this.api.sendRequest('GET', url);
+    } catch (error) {
+      console.error('Hubo un error al obtener el producto:', error);
+      throw error;
+    }
+  }
+
   async getDataBuyWompi(params: {id: number, cantidad: number}): Promise<any> {
     try {
       const url = `/payments/articulo/integrity-signature?id=${params.id}&cantidad=${params.cantidad}`;
       return await this.api.sendRequest('GET', url);
     } catch (error) {
       console.error('Hubo un error al realizar la compra:', error);
+      throw error;
+    }
+  }
+
+  async denarioProducts(): Promise<any> {
+    try {
+      const url = `/articulos/all-denario-products`;
+      const response: any[] = await this.api.sendRequest('GET', url);
+      return response;
+    } catch (error) {
+      console.error('Hubo un error al obtener los productos del denario:', error);
       throw error;
     }
   }

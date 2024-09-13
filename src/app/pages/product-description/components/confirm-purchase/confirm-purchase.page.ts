@@ -106,7 +106,7 @@ export class ConfirmPurchasePage implements OnInit {
 
   calculateTotal(): string {
     if (this.productInfo) {
-      const total = this.productInfo.PrecioUnit * this.productInfo.Cantidad;
+      const total = this.productInfo.ValorUnt * this.productInfo.Stock;
       return this.formatPrice(total);
     }
     return this.formatPrice(0);
@@ -115,7 +115,7 @@ export class ConfirmPurchasePage implements OnInit {
   async initCotizacion(){
     // Lógica para inicializar la cotización
     this.loadProductInfo();
-    this.productService.compareIdUsers(this.idCotizacion);
+    // this.productService.compareIdUsers(this.idCotizacion);
   }
 
   async initCart(){
@@ -137,7 +137,7 @@ export class ConfirmPurchasePage implements OnInit {
         this.router.navigate(['/login'], { queryParams: { navigation: this.router.url } });
         return;
       }
-      const purchaseData = await this.api.getDataBuyWompi({ id: this.productInfo.IdProducto, cantidad: this.productInfo.Cantidad});
+      const purchaseData = await this.api.getDataBuyWompi({ id: this.productInfo.Id, cantidad: this.productInfo.Stock});
       const publicKey = purchaseData.publicKey ?? '';
       const currency = purchaseData.currency ?? '';
       const amountInCents = purchaseData.amountInCents ?? '';

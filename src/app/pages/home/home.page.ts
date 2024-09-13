@@ -21,6 +21,7 @@ import { FiltrarComponent } from "./components/filtrar/filtrar.component";
 export class HomePage implements OnInit {
 
   initArticlesSipnner: boolean = false;
+  denarioArticles: any[] = [];
   slides: any[] = [
     {
       web: "https://tuubodega.s3.amazonaws.com/banner-app/banner-test-web.webp",
@@ -50,10 +51,13 @@ export class HomePage implements OnInit {
   
   constructor(
     public glb: GlobalService,
-    private api: ArticlesService
+    private api: ArticlesService,
   ) {}
 
-  async ngOnInit() {}
+  async ngOnInit() {
+    this.denarioArticles = await this.api.denarioProducts();
+    console.log('this.denarioArticles:', this.denarioArticles);
+  }
 
   async getInitData() {}
 

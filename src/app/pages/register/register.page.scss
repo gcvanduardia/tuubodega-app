@@ -1,0 +1,51 @@
+.card-container{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.card-register {
+    display: flex;
+    flex-direction: column;
+    row-gap: 15px;
+    min-width: 400px;
+    margin-top: 0px;
+    border-radius: 15px;
+    padding-bottom: 15px;
+}
+
+
+.img-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 15px;
+}
+
+.image-logo {
+    max-width: 300px;
+}
+
+.label-card {
+    margin: 0px 25px !important;
+}
+
+.card-validate-code {
+    padding: 12px 4px;
+    width: 400px;
+}
+
+.hidden {
+    display: none;
+}
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+input[type=number] {
+    -moz-appearance: textfield;
+}

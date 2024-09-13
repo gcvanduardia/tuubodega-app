@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonHeader, IonTitle, IonToolbar, IonContent, IonItem, IonLabel, IonInput, IonButton, IonGrid, IonRow, IonCol, IonCard, IonImg } from '@ionic/angular/standalone';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { NgForm } from '@angular/forms';
 import { AuthService } from "../../shared/services/auth/auth.service";
 
@@ -17,6 +17,7 @@ export class LoginPage implements OnInit {
 
   constructor(
     private auth: AuthService,
+    private router: Router,
   ) { }
 
   ngOnInit() { }
@@ -34,6 +35,10 @@ export class LoginPage implements OnInit {
     console.log('username:', username);
     console.log('password:', password);
     this.auth.login(username, password);
+  }
+
+  goToRegister() {
+    this.router.navigate(['/register']);
   }
 
 }

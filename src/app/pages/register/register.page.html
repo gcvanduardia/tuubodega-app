@@ -1,0 +1,193 @@
+<ion-content mode="ios">
+  <ion-grid fixed>
+    <ion-row>
+      <ion-col size="12" class="card-container">
+        <div>
+          <div class="img-container">
+            <ion-img class="image-logo" src="../../../assets/img/logo1.png"></ion-img>
+          </div>
+
+          <div [ngClass]="{'hidden': showSendCode}">
+            <ion-text class="label-card">Datos básicos</ion-text>
+            <form [formGroup]="formRegister" (ngSubmit)="onSubmit()" autocomplete="off">
+              <ion-card class="card-register">
+                <ion-item>
+                  <ion-input
+                    label="Nombre"
+                    labelPlacement="stacked"
+                    type="text"
+                    ngModel
+                    name="nombre"
+                    formControlName="name"
+                    autocomplete="off"
+                    errorText="El nombre debe tener minimo 3 caracteres"
+                    style="--border-style: none"
+                  ></ion-input>
+                </ion-item>
+                <ion-item>
+                  <ion-input
+                    label="Apellido"
+                    labelPlacement="stacked"
+                    type="text"
+                    ngModel
+                    name="apellido"
+                    formControlName="lastName"
+                    autocomplete="off"
+                    errorText="El apellido debe tener minimo 3 caracteres"
+                    style="--border-style: none"
+                  ></ion-input>
+                </ion-item>
+                <ion-item>
+                  <ion-input
+                    label="Documento"
+                    labelPlacement="stacked"
+                    type="text"
+                    ngModel
+                    name="documento"
+                    formControlName="document"
+                    autocomplete="off"
+                    type="number"
+                    errorText="El documento es requerido"
+                    style="--border-style: none"
+                  ></ion-input>
+                </ion-item>
+                <ion-item>
+                  <ion-input
+                    label="Correo"
+                    labelPlacement="stacked"
+                    type="mail"
+                    ngModel
+                    name="correo"
+                    formControlName="email"
+                    autocomplete="off"
+                    errorText="El correo es requerido"
+                    style="--border-style: none"
+                  ></ion-input>
+                </ion-item>
+                <ion-item>
+                  <ion-input
+                    label="Teléfono"
+                    labelPlacement="stacked"
+                    type="text"
+                    ngModel
+                    name="telefono"
+                    formControlName="phone"
+                    autocomplete="off"
+                    type="number"
+                    errorText="El telefono es requerido"
+                    style="--border-style: none"
+                  ></ion-input>
+                </ion-item>
+              </ion-card>
+              <ion-text class="label-card">Direccion</ion-text>
+              <ion-card class="card-register">
+                <ion-item>
+                  <ion-input
+                    label="País"
+                    labelPlacement="stacked"
+                    type="text"
+                    ngModel
+                    name="pais"
+                    formControlName="country"
+                    autocomplete="off"
+                  ></ion-input>
+                </ion-item>
+                <ion-item>
+                  <ion-input
+                    label="Departamento"
+                    labelPlacement="stacked"
+                    type="text"
+                    ngModel
+                    name="departamento"
+                    formControlName="department"
+                    autocomplete="off"
+                  ></ion-input>
+                </ion-item>
+                <ion-item>
+                  <ion-input
+                    label="Ciudad"
+                    labelPlacement="stacked"
+                    type="text"
+                    ngModel
+                    name="ciudad"
+                    formControlName="city"
+                    autocomplete="off"
+                  ></ion-input>
+                </ion-item>
+                <ion-item>
+                  <ion-input
+                    label="Direccion"
+                    labelPlacement="stacked"
+                    type="text"
+                    ngModel
+                    name="direccion"
+                    formControlName="address"
+                    autocomplete="off"
+                  ></ion-input>
+                </ion-item>
+                <ion-item>
+                  <ion-input
+                    label="Anexo"
+                    labelPlacement="stacked"
+                    type="text"
+                    ngModel
+                    name="anexo"
+                    formControlName="addressAdd"
+                    autocomplete="off"
+                  ></ion-input>
+                </ion-item>
+              </ion-card>
+              <ion-text class="label-card">Seguridad</ion-text>
+              <ion-card class="card-register">
+                <ion-item>
+                  <ion-input
+                    label="Contraseña"
+                    labelPlacement="stacked"
+                    type="password"
+                    ngModel
+                    name="password"
+                    formControlName="password"
+                    autocomplete="new-password"
+                    errorText="La contraseña es requerida"
+                    style="--border-style: none"
+                    ></ion-input>
+                </ion-item>
+                <ion-item>
+                  <ion-input
+                    label="Confirmar contraseña"
+                    labelPlacement="stacked"
+                    type="password"
+                    ngModel
+                    name="confirmarPassword"
+                    formControlName="confirmarPassword"
+                    autocomplete="new-password"
+                    style="--border-style: none"
+                    ></ion-input>
+                    <ion-text *ngIf="!passwordMatch" color="danger" style="font-size: 12px; width: 160px;">Las contraseñas no coinciden</ion-text>
+                </ion-item>
+              </ion-card>
+              <ion-button expand="block" type="submit" [disabled]="formRegister.invalid">Crear</ion-button>
+            </form>
+          </div>
+          <div [ngClass]="{'hidden': !showSendCode}">
+            <ion-card class="card-validate-code">
+              <ion-item>
+                <ion-text>Enviamos un código de verificación a su correo</ion-text>
+                <ion-input
+                  labelPlacement="stacked"
+                  type="text"
+                  name="documento"
+                  type="number"
+                  [(ngModel)]="codeValidationEmail"
+                  style="--border-style: none"
+                ></ion-input>
+              </ion-item>
+              <ion-button expand="block" (click)="sendCode()">Validar</ion-button>
+              <ion-button expand="block" color="medium" (click)="showSendCode = false">Regresar</ion-button>
+            </ion-card>
+          </div>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

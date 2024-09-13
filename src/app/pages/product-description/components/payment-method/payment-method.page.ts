@@ -45,7 +45,7 @@ export class PaymentMethodPage {
       
     } else if (!this.isCart && this.idCotizacion !== null) {
       // Lógica para cotización
-      this.productService.setDeliveryMethod(method, this.idCotizacion);
+      this.productService.setPaymentMethod(method, this.idCotizacion);
       this.router.navigate([`/confirm-purchase/${this.idCotizacion}`]);
     } else {
       console.error('idCotizacion or idOrden is null');
@@ -53,7 +53,7 @@ export class PaymentMethodPage {
   }
 
   async initCotizacion(){
-    this.productService.compareIdUsers(this.idCotizacion);
+    // this.productService.compareIdUsers(this.idCotizacion);
   }
 
   async initCart(){

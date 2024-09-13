@@ -79,7 +79,9 @@ export class ProductDescriptionPage implements OnInit {
 
   async getArticle() {
     this.loadingArticle = true;
-    const articleRes = await this.api.getArticle(this.id);
+    const articleRes = await this.api.getDenarioArticle(this.id);
+    console.log("Articulo: ", articleRes);
+    console.log("Articulo: ", articleRes.UrlFotos);
     this.loadingArticle = false;
     if(articleRes){
       this.article = articleRes;
@@ -88,8 +90,8 @@ export class ProductDescriptionPage implements OnInit {
   }
 
   adaptArticle(){
-    this.article.ImagenesArray = this.article.Imagenes.split(',');
-    this.article.ImagenesArray = this.article.ImagenesArray.filter((image:any) => image !== "");
+    this.article.UrlFotos = this.article.UrlFotos[0].split(',');
+    this.article.UrlFotos = this.article.UrlFotos.filter((image:any) => image !== "");
   }
 
 }

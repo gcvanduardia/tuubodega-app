@@ -59,7 +59,7 @@ export class DeliveryMethodPage {
 
   async initCotizacion(){
     // Lógica para inicializar la cotización
-    this.productService.compareIdUsers(this.idCotizacion);
+    // this.productService.compareIdUsers(this.idCotizacion);
   }
 
   async initCart(){

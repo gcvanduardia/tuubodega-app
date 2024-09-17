@@ -63,7 +63,7 @@ export class SearchMainComponent  implements OnInit {
     this.glb.searchArticles = this.searchArticles;
     this.glb.pageArticles = 1;
     this.glb.searchInProcess = true;
-    const products = await this.api.searchArticles();
+    const products = await this.api.searchDenario();
     console.log('products searched:', products);
     this.glb.searchInProcess = false;
     this.glb.articles = products[0];
@@ -78,8 +78,8 @@ export class SearchMainComponent  implements OnInit {
   async preSearch(e: Event){
     this.glb.pageArticles = 1;
     this.glb.searchInProcess = true;
-    const products = await this.api.preSearchArticles(this.searchArticles);
-    this.glb.preSearchArticles = products[0].map((item:any) => item.Nombre);
+    const products = await this.api.presearchDenario({search: this.searchArticles});
+    this.glb.preSearchArticles = products[0].map((item:any) => item.Titulo);
     console.log('products preSearched:', this.glb.preSearchArticles);
     this.glb.searchInProcess = false;
     if(!this.isPopoverOpen && this.glb.preSearchArticles.length > 0){this.presentPopover(e);}

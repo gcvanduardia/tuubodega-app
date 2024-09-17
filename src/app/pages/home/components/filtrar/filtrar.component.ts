@@ -25,7 +25,7 @@ export class FiltrarComponent  implements OnInit {
   async filter(){
     this.glb.filterInProcess = true;
     this.glb.pageArticles = 1;
-    const products = await this.api.searchArticles();
+    const products = await this.api.searchDenario();
     console.log('products filter:', products);
     this.glb.filterInProcess = false;
     this.glb.articles = [];

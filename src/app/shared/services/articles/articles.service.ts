@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ApiService } from "../api/api.service";
 import { GlobalService } from "../global/global.service";
+import { search } from 'ionicons/icons';
 
 @Injectable({
   providedIn: 'root'
@@ -82,6 +83,31 @@ export class ArticlesService {
     try {
       const url = `/articulos/all-denario-products`;
       const response: any[] = await this.api.sendRequest('GET', url);
+      console.log('Denario Products #######:', response);
+      return response;
+    } catch (error) {
+      console.error('Hubo un error al obtener los productos del denario:', error);
+      throw error;
+    }
+  }
+
+  async searchDenario(): Promise<any> {
+    try {
+      const url = `/articulos/searchDenario?search=${this.glb.searchArticles}&pageNumber=${this.glb.pageArticles}&order=${this.glb.orderArticles}&categories=${this.glb.categoriesSelectedString}`;
+      const response: any[] = await this.api.sendRequest('GET', url);
+      console.log('Search Products #######:', response);
+      return response;
+    } catch (error) {
+      console.error('Hubo un error al obtener los productos del denario:', error);
+      throw error;
+    }
+  }
+
+  async presearchDenario(params: {search: string}): Promise<any> {
+    try {
+      const url = `/articulos/presearchDenario?search=${params.search}&pageNumber=1&pageSize=12&order='masRelevante'`;
+      const response: any[] = await this.api.sendRequest('GET', url);
+      console.log('Search Products #######:', response);
       return response;
     } catch (error) {
       console.error('Hubo un error al obtener los productos del denario:', error);

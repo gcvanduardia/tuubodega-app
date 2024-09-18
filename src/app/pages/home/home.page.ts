@@ -22,6 +22,8 @@ export class HomePage implements OnInit {
 
   initArticlesSipnner: boolean = false;
   denarioArticles: any[] = [];
+  searchArticlesDenario: any[] = [];
+  presearchDenarioArticles: any[] = [];
   slides: any[] = [
     {
       web: "https://tuubodega.s3.amazonaws.com/banner-app/banner-test-web.webp",
@@ -55,8 +57,7 @@ export class HomePage implements OnInit {
   ) {}
 
   async ngOnInit() {
-    this.denarioArticles = await this.api.denarioProducts();
-    console.log('this.denarioArticles:', this.denarioArticles);
+
   }
 
   async getInitData() {}
@@ -79,9 +80,10 @@ export class HomePage implements OnInit {
     }
     this.glb.pageArticles++;
     console.log('this.glb.pageArticles:', this.glb.pageArticles);
-    const products = await this.api.searchArticles();
+    const products = await this.api.searchDenario();
     console.log('products searched:', products);
     this.glb.articles.push(...products[0]);
+    console.log('this.glb.articles:', this.glb.articles);
     infiteScroll.target.complete();
   }
 

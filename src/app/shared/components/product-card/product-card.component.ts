@@ -12,6 +12,7 @@ import { IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonCardSubtitle, 
 export class ProductCardComponent  implements OnInit {
 
   @Input() product: any = {};
+  
 
   constructor() { }
 

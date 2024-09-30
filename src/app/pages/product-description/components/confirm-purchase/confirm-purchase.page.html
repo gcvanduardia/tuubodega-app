@@ -39,10 +39,10 @@
     <ion-row>
       <ion-card *ngFor="let producto of productos" class="card-product">
         <p>
-          <strong>Nombre:</strong> {{ producto.details?.Nombre }}<br>
-          <strong>Precio Unidad:</strong> {{ formatPrice(producto.details?.PrecioUnit) }}
+          <strong>Nombre:</strong> {{ producto.details?.Titulo }}<br>
+          <strong>Precio Unidad:</strong> {{ formatPrice(producto.details?.ValorUnt) }}
         </p>
-        <ion-img [src]="producto.details?.ImagenPrin" alt="{{ producto.details?.Nombre }}"></ion-img>
+        <ion-img [src]="producto.details?.UrlFotos[0]" alt="{{ producto.details?.Nombre }}"></ion-img>
       </ion-card>
     </ion-row>
     <ion-row>

@@ -171,7 +171,7 @@ export class ConfirmPurchasePage implements OnInit {
   async fetchProductDetails() {
     for (const producto of this.productos) {
       try {
-        const articleDetails = await this.api.getArticle(producto.IdArticulo);
+        const articleDetails = await this.api.getDenarioArticle(producto.IdArticulo);
         producto.details = articleDetails;
         console.log('Detalles del producto:', articleDetails);
       } catch (error) {

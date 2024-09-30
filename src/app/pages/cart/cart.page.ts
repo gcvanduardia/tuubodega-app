@@ -38,7 +38,7 @@ export class CartPage  implements OnInit {
   }
 
   async startPurchase() {
-    await this.api.createCotizacionOrden(2);
+    await this.api.createCotizacionOrden(1);
     this.idOrden = this.api.getOrdenId();
     this.router.navigate([`/delivery-method/cart/${this.idOrden}`]);
   }
